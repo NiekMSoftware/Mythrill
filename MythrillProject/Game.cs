@@ -11,6 +11,7 @@ namespace MythrillProject
         // constructor to initialize data
         public Game() {
             InitState();
+            InitWindow();
         }
 
         private void InitState() {
@@ -18,6 +19,10 @@ namespace MythrillProject
             playerCharacters = new List<PlayerCharacter>();
             
             gameState.Push(new MainMenu(gameState, playerCharacters));
+        }
+
+        private void InitWindow() {
+            Console.Title = "Mythrill";
         }
         
         public void RunGame() {

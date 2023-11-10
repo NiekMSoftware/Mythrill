@@ -142,6 +142,5 @@ namespace MythrillProject.classes.custom_character
         }
 
         #endregion
-        
     }
 }

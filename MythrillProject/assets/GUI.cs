@@ -23,7 +23,7 @@
                 }
                 catch (FormatException message) {
                     // Catch custom exception and deploy a message
-                    Console.WriteLine(message);
+                    Console.WriteLine("Please insert a valid format!");
                 }
             }
 
