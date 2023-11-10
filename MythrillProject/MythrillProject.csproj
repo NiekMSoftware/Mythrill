@@ -8,8 +8,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="assets\" />
-      <Folder Include="classes\" />
       <Folder Include="interfaces\" />
     </ItemGroup>
 
