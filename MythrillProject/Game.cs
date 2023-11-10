@@ -1,10 +1,12 @@
-﻿using MythrillProject.classes.gameplay_states;
+﻿using MythrillProject.classes.custom_character;
+using MythrillProject.classes.gameplay_states;
 
 namespace MythrillProject
 {
     public class Game
     {
         private Stack<GameStates> gameState;
+        private List<PlayerCharacter> playerCharacters;
         
         // constructor to initialize data
         public Game() {
@@ -13,8 +15,9 @@ namespace MythrillProject
 
         private void InitState() {
             gameState = new Stack<GameStates>();
+            playerCharacters = new List<PlayerCharacter>();
             
-            gameState.Push(new MainMenu(gameState));
+            gameState.Push(new MainMenu(gameState, playerCharacters));
         }
         
         public void RunGame() {
@@ -28,6 +31,8 @@ namespace MythrillProject
                     gameState.Pop();
                 }
             }
+
+            Console.WriteLine("Ending Application...");
         }
     }
 }
