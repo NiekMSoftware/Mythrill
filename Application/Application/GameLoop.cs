@@ -1,12 +1,15 @@
 ﻿using System.Diagnostics;
 using Application.classes;
 using Application.classes.abstract_classes;
+using Application.classes.gameplay_states;
+using Application.interfaces;
 
 namespace Application
 {
     public class GameLoop
     {
         private Stack<GameState>? gameState;
+        private List<ICharacter>? playerCreatedCharacters;
         
         // Constructor to initialize needed states and/or other properties
         public GameLoop() {
@@ -18,8 +21,11 @@ namespace Application
             // Initialize a new state
             gameState = new Stack<GameState>();
             
+            // Initialize the list
+            playerCreatedCharacters = new List<ICharacter>();
+            
             // Push out a new state
-            gameState.Push(new MainMenu(gameState));
+            gameState.Push(new MainMenu(gameState, playerCreatedCharacters));
         }
 
         public void RunLoop() {
