@@ -19,6 +19,12 @@ namespace Application.classes.abstract_classes
             // Update GUI things in here
         }
 
+        protected virtual void ProcessInput(int input) {
+            switch (input) {
+                // Switch different scenarios of the input
+            }
+        }
+
         public bool RequestEnd() => end;
     }
 }

@@ -13,7 +13,8 @@ namespace Application.classes.gameplay_states
         
         public override void Update() {
             // Display GUI
-            Console.Write(GUI.Title("TEMP NAME"));
+            Console.Write(GUI.GameTitle("CYBER TEMP CYBER NAME CYBER 2077"));
+            Console.Write(GUI.Title("Main Menu"));
             Console.Write(GUI.Selection(1, "Play"));
             Console.Write(GUI.Selection(2, "Character Creator"));
             Console.Write(GUI.Selection(-1, "Quit"));
@@ -22,14 +23,14 @@ namespace Application.classes.gameplay_states
             ProcessInput(GUI.GetInput("> "));
         }
 
-        private void ProcessInput(int input) {
+        protected override void ProcessInput(int input) {
             switch (input) {
                 case 1:
                     Console.WriteLine("Running Application!");
                     break;
                 case 2:
+                    Console.Clear();
                     // Push character creator stack
-                    Console.WriteLine("Character Creator");
                     gameStates.Push(new CharacterCreator(gameStates, playerChars));
                     break;
                 case -1:
