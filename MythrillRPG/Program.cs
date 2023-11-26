@@ -1,2 +1,12 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿namespace MythrillRPG
+{
+    internal class Program
+    {
+        private static void Main(string[] args)
+        {
+            // Initialize a new game object and run the game
+            Game game = new Game();
+            game.RunGame();
+        }
+    }
+}
