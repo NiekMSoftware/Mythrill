@@ -10,9 +10,11 @@ namespace MythrillRPG
             //Game game = new Game();
             //game.RunGame();
 
+            Console.SetWindowSize(201, 201);
+            
             RoomGenerator generator = new RoomGenerator();
             generator.InitializeRoom();
-            Console.SetWindowSize(101, 101);
+               
 
             Console.ReadKey();
         }
