@@ -1,4 +1,5 @@
 ﻿using MythrillRPG.classes.room_generation;
+using System;
 
 namespace MythrillRPG
 {
@@ -7,16 +8,8 @@ namespace MythrillRPG
         private static void Main(string[] args)
         {
             // Initialize a new game object and run the game
-            //Game game = new Game();
-            //game.RunGame();
-
-            Console.SetWindowSize(201, 201);
-            
-            RoomGenerator generator = new RoomGenerator();
-            generator.InitializeRoom();
-               
-
-            Console.ReadKey();
+            Game game = new Game();
+            game.RunGame();
         }
     }
 }

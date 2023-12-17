@@ -38,7 +38,9 @@ namespace MythrillRPG.classes.game_states
             switch (input)
             {
                 case 1:
+                    Console.Clear();
                     Console.WriteLine("Running Game!");
+                    gameStates.Push(new CombatState(gameStates));
                     break;
                 case 2:
                     Console.WriteLine("Displaying Credits!");

@@ -1,20 +1,31 @@
+using System.Diagnostics;
+
 namespace MythrillRPG.classes.room_generation
 {
     public class RoomGenerator
     {
+        #region Constant Properties
+
         public const int MaxX = 100;
         public const int MaxY = 100;
-        
+
         public const int RoomMaxWidth = 22;
         public const int RoomMaxHeight = 22;
-        public const int RoomMaxAmount = 8;
+        public const int RoomMaxAmount = 7;
 
         public const int GridSize = 200;
-        
+
         public const char EmptySpace = ' ';
         public const char Wall = '#';
         public const char Hallway = '.';
+        public const char Player = '@';
+
+        #endregion
+
+        // List to keep track of the rooms
+        public List<Room> Rooms = new List<Room>();
         
+        // Random
         private Random random = new Random();
 
         // Generate the room
@@ -45,9 +56,6 @@ namespace MythrillRPG.classes.room_generation
         // Create a new public List Method of the Rooms to generate it 
         public List<Room> GenerateRooms(int numbOfRooms, int maxWidth, int maxHeight, int maxX, int maxY)
         {
-            // Initialize the list of rooms
-            List<Room> rooms = new List<Room>();
-
             // Loop to generate the specified number of rooms
             for (int i = 0; i < numbOfRooms; i++)
             {
@@ -58,11 +66,11 @@ namespace MythrillRPG.classes.room_generation
                 {
                     // Generate a new room
                     newRoom = GenerateRoom(maxWidth, maxHeight, maxX, maxY);
-                } while (DoesRoomIntersect(newRoom, rooms)); // If the room intersects, generate a new one
+                } while (DoesRoomIntersect(newRoom, Rooms)); // If the room intersects, generate a new one
                 // If the room doesn't intersect with any existing room, add it to the list
-                rooms.Add(newRoom);
+                Rooms.Add(newRoom);
             }
-            return rooms;
+            return Rooms;
         }
 
         // Method to check if two rooms intersect
@@ -75,8 +83,7 @@ namespace MythrillRPG.classes.room_generation
                    room1.Y < room2.Y + room2.Height &&
                    room1.Y + room1.Height > room2.Y;
         }
-
-
+        
         public void InitializeRoom()
         {
             RoomGenerator generator = new RoomGenerator();
@@ -87,7 +94,7 @@ namespace MythrillRPG.classes.room_generation
             // Create a new list of the Room and generate it
             List<Room> rooms = generator.GenerateRooms(RoomMaxAmount, RoomMaxWidth, RoomMaxHeight, MaxX, MaxY);
 
-            // Create hallway objects
+            // Add hallway objects
             for (int i = 0; i < rooms.Count - 1; i++)
             {
                 hallways.Add(new Hallway(rooms[i], rooms[i + 1]));
