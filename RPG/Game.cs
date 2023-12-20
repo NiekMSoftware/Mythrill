@@ -44,6 +44,8 @@ namespace RPG
                     currentState.Pop();
                 }
             } while(currentState.Count > 0);
+
+            Console.WriteLine("\n\nThank you for playing!");
         }
     }
 }
