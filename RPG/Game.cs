@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using RPG.characters;
 using RPG.game_states;
 
 namespace RPG
@@ -7,6 +8,9 @@ namespace RPG
     {
         // Create a stack from the GameState class
         private Stack<GameState>? currentState;
+        
+        // Create an ArrayList of the characters
+        private List<Character>? playerCharacters;
 
         // initialize variables in constructor
         public Game()
@@ -20,8 +24,11 @@ namespace RPG
             // Initialize currentState
             currentState = new Stack<GameState>();
 
+            // Initialize playerCharacters
+            playerCharacters = new List<Character>();
+
             // Push through a new Stack
-            currentState.Push(new MainMenu(currentState));
+            currentState.Push(new MainMenu(currentState, playerCharacters));
         }
 
         public void RunLoop()

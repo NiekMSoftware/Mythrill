@@ -1,11 +1,13 @@
 ﻿using System.Diagnostics;
 using RPG.assets;
+using RPG.characters;
 
 namespace RPG.game_states
 {
     public class MainMenu : GameState
     {
-        public MainMenu(Stack<GameState> gameStates) : base(gameStates)
+        public MainMenu(Stack<GameState> gameStates, List<Character> characters) 
+            : base(gameStates, characters)
         {
             Debug.WriteLine("Created the MainMenu State");
         }
