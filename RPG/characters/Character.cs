@@ -18,10 +18,15 @@ namespace RPG.characters
         {
             throw new NotImplementedException();
         }
-    }
 
-    public class Warrior : Character
-    {
-        
+        public int RemoveSkillPoint(int skillPoint)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GainSkillPoint(int skillPoint)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

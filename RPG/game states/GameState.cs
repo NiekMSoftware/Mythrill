@@ -19,7 +19,11 @@ namespace RPG.game_states
         // Protected boolean to check if the state is ending
         protected bool end;
 
-        // Overloaded constructor with the game states
+        /// <summary>
+        /// Overloaded Constructor, make sure to keep in the parameters
+        /// </summary>
+        /// <param name="gameStates"></param>
+        /// <param name="characters"></param>
         protected GameState(Stack<GameState> gameStates, List<Character> characters)
         {
             // Set the protected field to the constructor
@@ -28,16 +32,23 @@ namespace RPG.game_states
             this.characters = characters;
         }
 
-        // Is used to process input of the player
+        /// <summary>
+        /// ProcessInput is used to process all regarding input within a switch statement
+        /// </summary>
+        /// <param name="input"></param>
         public virtual void ProcessInput(int input){}
 
-        // Protected method to update the game
-        // Used for GUI related functionality
+        /// <summary>
+        /// Update function to generate any GUI output
+        /// </summary>
         public virtual void Update()
         {
         }
 
-        // Public boolean to check if the state wants to end
+        /// <summary>
+        /// Returns the boolean 'end' either true or false
+        /// </summary>
+        /// <returns></returns>
         public bool RequestEnd() => end;
     }
 }
