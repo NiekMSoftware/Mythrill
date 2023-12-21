@@ -40,7 +40,6 @@
                 catch (FormatException)
                 {
                     Console.WriteLine("No valid input, please enter integer values.");
-                    throw;
                 }
             }
 

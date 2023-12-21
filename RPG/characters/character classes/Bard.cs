@@ -5,6 +5,9 @@
     /// </summary>
     public class Bard : Character
     {
-        
+        public override string ToString()
+        {
+            return "Bard";
+        }
     }
 }

@@ -34,6 +34,7 @@ namespace RPG.game_states
                     break;
                 case 2:
                     Console.WriteLine("Displaying Character Creator");
+                    gameStates.Push(new CharacterCreator(gameStates, characters));
                     break;
                 case 3:
                     Console.WriteLine("Displaying Options");
