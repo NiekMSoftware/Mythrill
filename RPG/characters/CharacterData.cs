@@ -24,6 +24,7 @@
             charisma = 1;
 
             characterRace = Race.None;
+            characterGender = Gender.None;
         }
 
         protected string name;
@@ -139,6 +140,7 @@
         }
 
         public Race characterRace;
+        public Gender characterGender;
 
         #endregion
 

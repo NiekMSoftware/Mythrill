@@ -19,6 +19,9 @@ namespace RPG.game_states
         // Protected boolean to check if the state is ending
         protected bool end;
 
+        // Constant int to keep the capacity up, this property is on private
+        private const int LIST_SIZE = 10;
+
         /// <summary>
         /// Overloaded Constructor, make sure to keep in the parameters
         /// </summary>
@@ -30,6 +33,8 @@ namespace RPG.game_states
             // this will keep track of the state
             this.gameStates = gameStates;
             this.characters = characters;
+
+            this.characters = new List<Character>(LIST_SIZE);  // initialize the list to 10
         }
 
         /// <summary>

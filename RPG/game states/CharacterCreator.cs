@@ -14,7 +14,53 @@ namespace RPG.game_states
 
         public override void Update()
         {
+            // Display Game State
             Gui.GameState("Character Creator");
+
+            // Output the selections the player has
+            Gui.ShowOptions(1, "Create Character");
+            Gui.ShowOptions(2, "View Characters");
+            Gui.ShowOptions(3, "Delete Characters");
+            Gui.ShowOptions(-1, "Return to main menu");
+
+            // Check if the list count is up to it's capacity
+            if (characters.Count != characters.Capacity)
+            {
+                SelectOption(Gui.GetInput("> "));
+            }
+            else
+            {
+                Console.WriteLine("I'm sorry, but you already have 10 characters!");
+            }
+        }
+
+        private void SelectOption(int input)
+        {
+            switch (input)
+            {
+                case 1:
+                    ShowClasses();
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case -1:
+                    end = true;
+                    break;
+                default:
+                    Console.WriteLine("Index out of bounds!\n" +
+                                      "(press any key to continue)");
+                    Console.ReadKey();
+                    Console.Clear();
+                    break;
+            }
+        }
+        
+
+        private void ShowClasses()
+        {
+            Gui.GameState("Select Class");
 
             // Show player the options of classes they can pick out of
             Gui.ShowOptions(1, "Bard");
@@ -25,10 +71,17 @@ namespace RPG.game_states
 
             // Ask what the player wants for class for their character
             Console.Write("\nPlease select the Class you would like:\n");
-            ProcessInput(Gui.GetInput("> "));
+            SelectClass(Gui.GetInput("> "));
         }
 
-        public override void ProcessInput(int input)
+        private void ShowCharacters()
+        {
+
+        }
+
+        #region Character Creation
+
+        public void SelectClass(int input)
         {
             switch (input)
             {
@@ -58,17 +111,46 @@ namespace RPG.game_states
 
         /// <summary>
         /// Function creates a new character with a separate class.
-        /// This function will also always request a name for the newly created Character.
+        /// This function will also always request a race, gender and name for the newly created Character.
         /// </summary>
         /// <returns>new Character()</returns>
-        private Character? CreateCharacter(Character playerCharacter)
+        private Character CreateCharacter(Character playerCharacter)
         {
-            // Ask the player for a new name
+            // Display GUI elements
+            Gui.GameState("Race Selection");
+            Gui.ShowOptions(1, "Dragonborn");
+            Gui.ShowOptions(2, "Elf");
+            Gui.ShowOptions(3, "Half Elf");
+            Gui.ShowOptions(4, "Human");
+
+            Console.Write("Please enter a number to select your character's Race: ");
+
+            // Select a race
+            while (playerCharacter.characterRace == Race.None)
+            {
+                SelectRace(Gui.GetInput("> "), playerCharacter);
+            }
+
+            // Display GUI elements
+            Gui.GameState("Gender Selection");
+            Gui.ShowOptions(1, "Male");
+            Gui.ShowOptions(2, "Female");
+
+            Console.Write("Please enter a number to select your character's Gender: ");
+
+            // Select a gender
+            while (playerCharacter.characterGender == Gender.None)
+            {
+                SelectGender(Gui.GetInput("> "), playerCharacter);
+            }
+
+            // Ask the player for a name
             string? nameInput;
 
             do
             {
-                Console.Write("\n\nPlease enter a valid name (limit of: 2-18 characters): ");
+                Gui.GameState("Name selection");
+                Console.Write("\nPlease enter a valid name (limit of: 2-18 characters): ");
                 nameInput = Console.ReadLine();
 
             } while (nameInput?.Length is <= 2 or >= 18);
@@ -78,10 +160,64 @@ namespace RPG.game_states
 
             Debug.WriteLine($"Returned {playerCharacter.ToString()}, {playerCharacter.ToString()} has the name: {playerCharacter.Name}");
 
-            // Add the new playerCharacter to the list
+            // Add the character to the list
             characters.Add(playerCharacter);
-            Debug.WriteLine($"Count of {characters} is: {characters.Count}");
+
+            // Debugging
+            Debug.WriteLine($"Count of {characters} is: {characters.Count}.");
+            Debug.WriteLine($"Capacity of {characters} is: {characters.Capacity}.");
+            Debug.WriteLine($"Returning {playerCharacter} with these values:\n" +
+                            $"Name: {playerCharacter.Name}\n" +
+                            $"Gender: {playerCharacter.characterGender}\n" +
+                            $"Race: {playerCharacter.characterRace}");
+
             return playerCharacter;
         }
+
+        private Character SelectRace(int index, Character playerCharacter)
+        {
+            switch (index)
+            {
+                case 1:
+                    playerCharacter.characterRace = Race.Dragonborn;
+                    break;
+                case 2:
+                    playerCharacter.characterRace = Race.Elf;
+                    break;
+                case 3:
+                    playerCharacter.characterRace = Race.HalfElf;
+                    break;
+                case 4:
+                    playerCharacter.characterRace = Race.Human;
+                    break;
+                default:
+                    Console.Write("Index out of bounds!\n" +
+                                  "Please enter a valid number.\n");
+                    break;
+            }
+
+            return playerCharacter;
+        }
+
+        private Character SelectGender(int input, Character playerCharacter)
+        {
+            switch (input)
+            {
+                case 1:
+                    playerCharacter.characterGender = Gender.Male;
+                    break;
+                case 2:
+                    playerCharacter.characterGender = Gender.Female;
+                    break;
+                default:
+                    Console.WriteLine("Index out of bounds!\n" +
+                                      "Please enter a valid number.\n");
+                    break;
+            }
+
+            return playerCharacter;
+        }
+
+        #endregion
     }
 }

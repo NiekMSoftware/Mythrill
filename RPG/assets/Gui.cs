@@ -39,7 +39,8 @@
                 }
                 catch (FormatException)
                 {
-                    Console.WriteLine("No valid input, please enter integer values.");
+                    Console.Write("No valid input, please enter integer values.\n" +
+                                      $"{prompt}");
                 }
             }
 
