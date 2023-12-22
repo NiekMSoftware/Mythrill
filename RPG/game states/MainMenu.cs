@@ -33,7 +33,7 @@ namespace RPG.game_states
                     Console.WriteLine("Starting Game");
                     break;
                 case 2:
-                    Console.WriteLine("Displaying Character Creator");
+                    Console.Clear();
                     gameStates.Push(new CharacterCreator(gameStates, characters));
                     break;
                 case 3:
@@ -43,10 +43,8 @@ namespace RPG.game_states
                     endState = true;
                     break;
                 default:
-                    Console.WriteLine($"Index: {input} is out of bounds.\n" +
-                                      $"(press any key to continue)\n\n");
-                    Console.ReadKey();
-                    Console.Clear();
+                    Console.Write($"Index: {input} is out of bounds.\n" +
+                                  $"Please enter a valid index!\n");
                     break;
             }
         }

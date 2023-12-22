@@ -23,38 +23,38 @@ namespace RPG.game_states
             Gui.ShowOptions(3, "Delete Characters");
             Gui.ShowOptions(-1, "Return to main menu");
 
-            // Check if the list count is up to it's capacity
-            if (characters.Count != characters.Capacity)
-            {
-                SelectOption(Gui.GetInput("> "));
-            }
-            else
-            {
-                Console.WriteLine("I'm sorry, but you already have 10 characters!");
-            }
+            SelectOption(Gui.GetInput("> "));
         }
 
         private void SelectOption(int input)
         {
-            switch (input)
+            if (characters.Count != characters.Capacity)
             {
-                case 1:
-                    ShowClasses();
-                    break;
-                case 2:
-                    ShowCharacters();
-                    break;
-                case 3:
-                    break;
-                case -1:
-                    endState = true;
-                    break;
-                default:
-                    Console.WriteLine("Index out of bounds!\n" +
-                                      "(press any key to continue)");
-                    Console.ReadKey();
-                    Console.Clear();
-                    break;
+                switch (input)
+                {
+                    case 1:
+                        Console.Clear();
+                        ShowClasses();
+                        break;
+                    case 2:
+                        Console.Clear();
+                        ShowCharacters();
+                        break;
+                    case 3:
+                        break;
+                    case -1:
+                        Console.Clear();
+                        endState = true;
+                        break;
+                    default:
+                        Console.WriteLine("Index out of bounds!\n" +
+                                          "Please enter a valid index!\n");
+                        break;
+                }
+            }
+            else
+            {
+                Console.WriteLine("I'm sorry but you have already 10 characters!");
             }
         }
         
@@ -79,7 +79,7 @@ namespace RPG.game_states
         {
             if (characters.Count == 0)
             {
-                Console.WriteLine("\nThere are no characters to display.\n");
+                Console.WriteLine("There are no characters to display.\n");
             }
             else
             {
@@ -96,29 +96,37 @@ namespace RPG.game_states
 
         public void SelectClass(int input)
         {
-            switch (input)
+            while (true)
             {
-                case 1:
-                    CreateCharacter(new Bard());
-                    break;
-                case 2:
-                    CreateCharacter(new Berserk());
-                    break;
-                case 3:
-                    CreateCharacter(new Knight());
-                    break;
-                case 4:
-                    CreateCharacter(new Warlock());
-                    break;
-                case 5:
-                    CreateCharacter(new Wizard());
-                    break;
-                default:
-                    Console.WriteLine("Index out of bounds!\n" +
-                                      "(press any key to continue)");
-                    Console.ReadKey();
-                    Console.Clear();
-                    break;
+                switch (input)
+                {
+                    case 1:
+                        Console.Clear();
+                        CreateCharacter(new Bard());
+                        break;
+                    case 2:
+                        Console.Clear();
+                        CreateCharacter(new Berserk());
+                        break;
+                    case 3:
+                        Console.Clear();
+                        CreateCharacter(new Knight());
+                        break;
+                    case 4:
+                        Console.Clear();
+                        CreateCharacter(new Warlock());
+                        break;
+                    case 5:
+                        Console.Clear();
+                        CreateCharacter(new Wizard());
+                        break;
+                    default:
+                        Console.Write("Index out of bounds!\n" + "Please enter a valid index!\n");
+                        input = Gui.GetInput("> ");
+                        continue;
+                }
+
+                break;
             }
         }
 
@@ -144,6 +152,8 @@ namespace RPG.game_states
                 SelectRace(Gui.GetInput("> "), playerCharacter);
             }
 
+            Console.Clear();
+
             // Display GUI elements
             Gui.GameState("Gender Selection");
             Gui.ShowOptions(1, "Male");
@@ -162,6 +172,8 @@ namespace RPG.game_states
 
             do
             {
+                Console.Clear();
+
                 Gui.GameState("Name selection");
                 Console.Write("\nPlease enter a valid name (limit of: 2-18 characters): ");
                 nameInput = Console.ReadLine();
@@ -185,6 +197,7 @@ namespace RPG.game_states
                             $"Gender: {playerCharacter.characterGender}\n" +
                             $"Race: {playerCharacter.characterRace}");
 
+            Console.Clear();
             return playerCharacter;
         }
 
