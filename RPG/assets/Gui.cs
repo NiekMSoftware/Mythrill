@@ -1,4 +1,6 @@
-﻿namespace RPG.assets
+﻿using RPG.characters;
+
+namespace RPG.assets
 {
     public class Gui
     {

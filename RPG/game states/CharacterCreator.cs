@@ -87,7 +87,10 @@ namespace RPG.game_states
 
                 for (int i = 0; i < characters.Count; i++)
                 {
-                    Gui.ShowOptions(i, characters[i].Name);
+                    Console.WriteLine("=== " + $"{characters[i].Name}");
+                    Console.WriteLine("= " + $"{characters[i]}");
+                    Console.WriteLine("= " + $"{characters[i].characterRace}");
+                    Console.WriteLine("= " + $"{characters[i].characterGender}\n\n");
                 }
             }
         }
@@ -144,9 +147,11 @@ namespace RPG.game_states
             Gui.ShowOptions(3, "Half Elf");
             Gui.ShowOptions(4, "Human");
 
-            Console.Write("Please enter a number to select your character's Race: ");
+            Console.WriteLine($"\n=== Character:" +
+                              $"\n= Class: {playerCharacter}\n");
 
             // Select a race
+            Console.Write("Please enter a number to select your character's Race: ");
             while (playerCharacter.characterRace == Race.None)
             {
                 SelectRace(Gui.GetInput("> "), playerCharacter);
@@ -158,6 +163,10 @@ namespace RPG.game_states
             Gui.GameState("Gender Selection");
             Gui.ShowOptions(1, "Male");
             Gui.ShowOptions(2, "Female");
+
+            Console.WriteLine($"\n=== Character:" +
+                              $"\n= Class: {playerCharacter}" +
+                              $"\n= Race: {playerCharacter.characterRace}\n");
 
             Console.Write("Please enter a number to select your character's Gender: ");
 
@@ -174,7 +183,13 @@ namespace RPG.game_states
             {
                 Console.Clear();
 
+                // Gui elements
                 Gui.GameState("Name selection");
+                Console.WriteLine($"\n=== Character" +
+                                  $"\n= Class: {playerCharacter}" +
+                                  $"\n= Race: {playerCharacter.characterRace}" +
+                                  $"\n= Gender: {playerCharacter.characterGender}");
+
                 Console.Write("\nPlease enter a valid name (limit of: 2-18 characters): ");
                 nameInput = Console.ReadLine();
 
