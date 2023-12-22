@@ -143,7 +143,6 @@
         public Gender characterGender;
 
         #endregion
-
     }
 
     public enum Race

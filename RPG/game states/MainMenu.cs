@@ -40,7 +40,7 @@ namespace RPG.game_states
                     Console.WriteLine("Displaying Options");
                     break;
                 case -1:
-                    end = true;
+                    endState = true;
                     break;
                 default:
                     Console.WriteLine($"Index: {input} is out of bounds.\n" +

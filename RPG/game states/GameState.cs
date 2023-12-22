@@ -17,7 +17,7 @@ namespace RPG.game_states
         }
 
         // Protected boolean to check if the state is ending
-        protected bool end;
+        protected bool endState;
 
         // Constant int to keep the capacity up, this property is on private
         private const int LIST_SIZE = 10;
@@ -51,9 +51,9 @@ namespace RPG.game_states
         }
 
         /// <summary>
-        /// Returns the boolean 'end' either true or false
+        /// Returns the boolean 'endState' either true or false
         /// </summary>
         /// <returns></returns>
-        public bool RequestEnd() => end;
+        public bool RequestEnd() => endState;
     }
 }

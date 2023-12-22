@@ -42,11 +42,12 @@ namespace RPG.game_states
                     ShowClasses();
                     break;
                 case 2:
+                    ShowCharacters();
                     break;
                 case 3:
                     break;
                 case -1:
-                    end = true;
+                    endState = true;
                     break;
                 default:
                     Console.WriteLine("Index out of bounds!\n" +
@@ -76,7 +77,19 @@ namespace RPG.game_states
 
         private void ShowCharacters()
         {
+            if (characters.Count == 0)
+            {
+                Console.WriteLine("\nThere are no characters to display.\n");
+            }
+            else
+            {
+                Gui.GameState("Characters");
 
+                for (int i = 0; i < characters.Count; i++)
+                {
+                    Gui.ShowOptions(i, characters[i].Name);
+                }
+            }
         }
 
         #region Character Creation
@@ -158,7 +171,8 @@ namespace RPG.game_states
             // add the name to the character
             if (nameInput != null) playerCharacter.Name = nameInput;
 
-            Debug.WriteLine($"Returned {playerCharacter.ToString()}, {playerCharacter.ToString()} has the name: {playerCharacter.Name}");
+            Debug.WriteLine($"Returned {playerCharacter.ToString()}, {playerCharacter.ToString()} " +
+                            $"has the name: {playerCharacter.Name}");
 
             // Add the character to the list
             characters.Add(playerCharacter);
@@ -208,6 +222,9 @@ namespace RPG.game_states
                     break;
                 case 2:
                     playerCharacter.characterGender = Gender.Female;
+                    break;
+                case 69:
+                    playerCharacter.characterGender = Gender.AttackHelicopter;
                     break;
                 default:
                     Console.WriteLine("Index out of bounds!\n" +

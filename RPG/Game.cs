@@ -44,7 +44,7 @@ namespace RPG
                 // Update the Game
                 currentState.Peek().Update();
 
-                // Check if the stack wants to end
+                // Check if the stack wants to endState
                 if (currentState.Peek().RequestEnd())
                 {
                     // Pop the state
