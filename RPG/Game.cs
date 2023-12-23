@@ -29,8 +29,6 @@ namespace RPG
 
             // Push through a new Stack
             currentState.Push(new MainMenu(currentState, playerCharacters));
-
-            Enemy.CreateEnemy(new Enemy());
         }
 
         public void RunLoop()

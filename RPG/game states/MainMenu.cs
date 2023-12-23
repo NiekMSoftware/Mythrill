@@ -30,6 +30,7 @@ namespace RPG.game_states
             {
                 case 1:
                     Console.WriteLine("Starting Game");
+                    gameStates.Push(new CombatState(gameStates, characters));
                     break;
                 case 2:
                     Console.Clear();
