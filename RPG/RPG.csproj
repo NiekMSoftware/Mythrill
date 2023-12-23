@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <Folder Include="assets\" />
+    <Folder Include="player\" />
   </ItemGroup>
 
 </Project>

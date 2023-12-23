@@ -5,6 +5,11 @@
     /// </summary>
     public class Warlock : Character
     {
+        public Warlock(Type type)
+        {
+            characterType = type;
+        }
+
         public override string ToString()
         {
             return "Warlock";

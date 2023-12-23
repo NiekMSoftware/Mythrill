@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using RPG.characters;
 using RPG.characters.character_classes;
+using Type = RPG.characters.Type;
 
 namespace RPG.game_states
 {
@@ -83,8 +84,7 @@ namespace RPG.game_states
                 //TODO: Display all characters' names and make the player select them to view or delete them
                 foreach (var character in characters)
                 {
-                    //Gui.ShowOptions(0 + 1, character.Name);
-                    
+                    Gui.ShowOptions(0 + 1, character.Name);
                 }
             }
         }
@@ -99,23 +99,23 @@ namespace RPG.game_states
                 {
                     case 1:
                         Console.Clear();
-                        CreateCharacter(new Bard());
+                        CreateCharacter(new Bard(Type.Player));
                         break;
                     case 2:
                         Console.Clear();
-                        CreateCharacter(new Berserk());
+                        CreateCharacter(new Berserk(Type.Player));
                         break;
                     case 3:
                         Console.Clear();
-                        CreateCharacter(new Knight());
+                        CreateCharacter(new Knight(Type.Player));
                         break;
                     case 4:
                         Console.Clear();
-                        CreateCharacter(new Warlock());
+                        CreateCharacter(new Warlock(Type.Player));
                         break;
                     case 5:
                         Console.Clear();
-                        CreateCharacter(new Wizard());
+                        CreateCharacter(new Wizard(Type.Player));
                         break;
                     default:
                         Console.Write("Index out of bounds!\n" + "Please enter a valid index!\n");
@@ -244,9 +244,6 @@ namespace RPG.game_states
                     break;
                 case 2:
                     playerCharacter.characterGender = Gender.Female;
-                    break;
-                case 69:
-                    playerCharacter.characterGender = Gender.AttackHelicopter;
                     break;
                 default:
                     Console.WriteLine("Index out of bounds!\n" +

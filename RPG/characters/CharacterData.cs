@@ -25,6 +25,8 @@
 
             characterRace = Race.None;
             characterGender = Gender.None;
+            characterType = Type.None;
+
         }
 
         protected string name;
@@ -141,6 +143,7 @@
 
         public Race characterRace;
         public Gender characterGender;
+        public Type characterType;
 
         #endregion
     }
@@ -156,9 +159,15 @@
 
     public enum Gender
     {
-        None,
         Male,
         Female,
-        AttackHelicopter
+        None
+    }
+
+    public enum Type
+    {
+        None,
+        Player,
+        Enemy
     }
 }

@@ -42,6 +42,7 @@ namespace RPG.game_states
         /// </summary>
         /// <param name="input"></param>
         public virtual void ProcessInput(int input){}
+        public virtual void ProcessInput(int input, Character playerCharacter){}
 
         /// <summary>
         /// Update function to generate any GUI output
