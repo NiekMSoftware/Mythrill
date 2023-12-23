@@ -1,6 +1,6 @@
 ﻿using RPG.characters;
 
-namespace RPG.assets
+namespace RPG
 {
     public class Gui
     {

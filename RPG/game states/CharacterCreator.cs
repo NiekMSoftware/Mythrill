@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using RPG.assets;
 using RPG.characters;
 using RPG.characters.character_classes;
 
@@ -20,7 +19,6 @@ namespace RPG.game_states
             // Output the selections the player has
             Gui.ShowOptions(1, "Create Character");
             Gui.ShowOptions(2, "View Characters");
-            Gui.ShowOptions(3, "Delete Characters");
             Gui.ShowOptions(-1, "Return to main menu");
 
             SelectOption(Gui.GetInput("> "));
@@ -40,8 +38,6 @@ namespace RPG.game_states
                         Console.Clear();
                         ShowCharacters();
                         break;
-                    case 3:
-                        break;
                     case -1:
                         Console.Clear();
                         endState = true;
@@ -58,7 +54,6 @@ namespace RPG.game_states
             }
         }
         
-
         private void ShowClasses()
         {
             Gui.GameState("Select Class");
@@ -85,12 +80,11 @@ namespace RPG.game_states
             {
                 Gui.GameState("Characters");
 
-                for (int i = 0; i < characters.Count; i++)
+                //TODO: Display all characters' names and make the player select them to view or delete them
+                foreach (var character in characters)
                 {
-                    Console.WriteLine("=== " + $"{characters[i].Name}");
-                    Console.WriteLine("= " + $"{characters[i]}");
-                    Console.WriteLine("= " + $"{characters[i].characterRace}");
-                    Console.WriteLine("= " + $"{characters[i].characterGender}\n\n");
+                    //Gui.ShowOptions(0 + 1, character.Name);
+                    
                 }
             }
         }

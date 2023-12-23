@@ -1,5 +1,4 @@
 ﻿using System.Diagnostics;
-using RPG.assets;
 using RPG.characters;
 
 namespace RPG.game_states
