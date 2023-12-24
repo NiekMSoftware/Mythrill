@@ -4,27 +4,42 @@ namespace RPG.characters
 {
     public abstract class Character : CharacterData, ICharacter
     {
-        public virtual void Attack()
+        public void TakeTurn(Character opponent)
         {
             throw new NotImplementedException();
         }
 
-        public virtual void Defend()
+        public void AttackEnemy(Character opponent)
         {
             throw new NotImplementedException();
         }
 
-        public virtual void Heal()
+        public void Defend()
         {
             throw new NotImplementedException();
         }
 
-        public int RemoveSkillPoint(int skillPoint)
+        public void Heal()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void TakeDamage(int damage)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int TakeSkillPoint(int skillPoint)
         {
             throw new NotImplementedException();
         }
 
         public int GainSkillPoint(int skillPoint)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool IsAlive()
         {
             throw new NotImplementedException();
         }

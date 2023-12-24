@@ -37,6 +37,7 @@ namespace RPG.characters
         public Enemy()
         {
             characterType = Type.Enemy;
+            health = 10;
         }
 
         public static Character CreateEnemy(Character enemy)
@@ -126,19 +127,9 @@ namespace RPG.characters
             return enemy;
         }
 
-        public override void Attack()
-        {
-            throw new NotImplementedException();
-        }
-
         public override void Defend()
         {
-            throw new NotImplementedException();
-        }
-
-        public override void Heal()
-        {
-            throw new NotImplementedException();
+            base.Defend();
         }
 
         public int RemoveSkillPoint(int skillPoint)

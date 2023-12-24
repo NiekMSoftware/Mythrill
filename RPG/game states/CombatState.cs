@@ -19,13 +19,13 @@ namespace RPG.game_states
 
         public override void Update()
         {
-            Gui.GameState("Combat State");
-            ProcessInput(Gui.GetInput("> "));
+            
         }
 
         private void InstantiateFight(Player player, Enemy enemy)
         {
-            // TODO: Display the player and enemy items
+            // TODO: Start the fight in a loop
+            
         }
     }
 }

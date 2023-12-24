@@ -1,4 +1,6 @@
-﻿namespace RPG.interfaces
+﻿using RPG.characters;
+
+namespace RPG.interfaces
 {
     /// <summary>
     /// ICharacter interface has the basic functionality
@@ -7,35 +9,52 @@
     public interface ICharacter
     {
         /// <summary>
-        /// Function to lower health of characters, also used to output GUI
+        /// TakeTurn takes the opposing Character as an opponent
         /// </summary>
-        protected void Attack();
+        /// <param name="opponent"></param>
+        void TakeTurn(Character opponent);
 
         /// <summary>
-        /// Function to defend, this will make sure lesser health will be removed
-        /// based on the other character's damage.
+        /// AttackEnemy() will attack the opposing Character, this is usually called from TakeTurn()
         /// </summary>
-        protected void Defend();
+        /// <param name="opponent"></param>
+        void AttackEnemy(Character opponent);
 
         /// <summary>
-        /// Function to heal up and gain health, this will make sure the character will survive in this scenario!
+        /// Defend() will do as it says, it will reduce the damage taken.
         /// </summary>
-        protected void Heal();
+        void Defend();
 
         /// <summary>
-        /// Lowers the skillPoints of the characters
-        /// <code>return skillPoints -= skillPoint;</code>
+        /// Heal() will heal up the Character
+        /// <code>health += healing</code>
+        /// </summary>
+        void Heal();
+
+        /// <summary>
+        /// TakeDamage() is only called once the Character attacks.
+        /// </summary>
+        /// <param name="damage"></param>
+        void TakeDamage(int damage);
+
+        /// <summary>
+        /// TakeSkillPoint() is taking a singular skill point for the character. Forcing for more strategy
         /// </summary>
         /// <param name="skillPoint"></param>
-        /// <returns></returns>
-        protected int RemoveSkillPoint(int skillPoint);
+        /// <returns>SkillPoints -= skillPoint;</returns>
+        int TakeSkillPoint(int skillPoint);
 
         /// <summary>
-        /// Increases the skillPoints of the characters
-        /// <code>return skillPoints += skillPoint;</code>
+        /// GainSkillPoint() will gain a new skill point based on a certain action that the Character did.
         /// </summary>
         /// <param name="skillPoint"></param>
+        /// <returns>SkillPoint += skillPoint</returns>
+        int GainSkillPoint(int skillPoint);
+
+        /// <summary>
+        /// IsAlive() checks if the Character's health has reached 0. If so it will return true.
+        /// </summary>
         /// <returns></returns>
-        protected int GainSkillPoint(int skillPoint);
+        bool IsAlive();
     }
 }
