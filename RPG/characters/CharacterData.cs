@@ -141,11 +141,22 @@
             set => charisma = value;
         }
 
+        public bool IsAlive() => Health > 0;
+
         public Race characterRace;
         public Gender characterGender;
         public Type characterType;
 
         #endregion
+
+        public void TakeDamage(int damage)
+        {
+            Health -= damage;
+            if (Health < 0)
+            {
+                Health = 0;
+            }
+        }
     }
 
     public enum Race

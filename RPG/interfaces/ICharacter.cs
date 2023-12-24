@@ -9,52 +9,23 @@ namespace RPG.interfaces
     public interface ICharacter
     {
         /// <summary>
-        /// TakeTurn takes the opposing Character as an opponent
+        /// Function Attack() is used to attack the opposing Character target.
         /// </summary>
-        /// <param name="opponent"></param>
-        void TakeTurn(Character opponent);
+        /// <param name="target"></param>
+        void Attack(Character target);
 
         /// <summary>
-        /// AttackEnemy() will attack the opposing Character, this is usually called from TakeTurn()
+        /// A skill will deal more damage than a regular attack.
+        /// Use this method only when the Character saved up enough points.
         /// </summary>
-        /// <param name="opponent"></param>
-        void AttackEnemy(Character opponent);
+        /// <param name="target"></param>
+        void UseSkill(Character target);
 
         /// <summary>
-        /// Defend() will do as it says, it will reduce the damage taken.
-        /// </summary>
-        void Defend();
-
-        /// <summary>
-        /// Heal() will heal up the Character
-        /// <code>health += healing</code>
-        /// </summary>
-        void Heal();
-
-        /// <summary>
-        /// TakeDamage() is only called once the Character attacks.
-        /// </summary>
-        /// <param name="damage"></param>
-        void TakeDamage(int damage);
-
-        /// <summary>
-        /// TakeSkillPoint() is taking a singular skill point for the character. Forcing for more strategy
-        /// </summary>
-        /// <param name="skillPoint"></param>
-        /// <returns>SkillPoints -= skillPoint;</returns>
-        int TakeSkillPoint(int skillPoint);
-
-        /// <summary>
-        /// GainSkillPoint() will gain a new skill point based on a certain action that the Character did.
-        /// </summary>
-        /// <param name="skillPoint"></param>
-        /// <returns>SkillPoint += skillPoint</returns>
-        int GainSkillPoint(int skillPoint);
-
-        /// <summary>
-        /// IsAlive() checks if the Character's health has reached 0. If so it will return true.
+        /// CalculateDamage() is called every Attack() sequence, function will calculate the
+        /// damage to each attack accordingly.
         /// </summary>
         /// <returns></returns>
-        bool IsAlive();
+        int CalculateDamage();
     }
 }

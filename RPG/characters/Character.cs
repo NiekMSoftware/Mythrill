@@ -2,46 +2,35 @@
 
 namespace RPG.characters
 {
+    /// <summary>
+    /// Character class inherits both from CharacterData and ICharacter,
+    /// which makes it easier for other Character classes to access those methods and properties
+    /// </summary>
     public abstract class Character : CharacterData, ICharacter
     {
-        public void TakeTurn(Character opponent)
+        public void Attack(Character target)
         {
-            throw new NotImplementedException();
+            // Deal damage to target
+            target.TakeDamage(CalculateDamage());
         }
 
-        public void AttackEnemy(Character opponent)
+        public void UseSkill(Character target)
         {
-            throw new NotImplementedException();
+            // TODO: Implement Skill logic
+            Attack(target);
         }
 
-        public void Defend()
+        public int CalculateDamage()
         {
-            throw new NotImplementedException();
-        }
+            var baseDamage = Damage;
+            var modifiedDamage = (int)(baseDamage * (1 + Strength / 10.0));
 
-        public void Heal()
-        {
-            throw new NotImplementedException();
-        }
+            // introduce random variability
+            Random random = new Random();
+            var variability = random.NextDouble() * 0.2 + 0.9;  // between 0.2 and 0.9
+            var totalDamage = (int)(modifiedDamage * variability);
 
-        public void TakeDamage(int damage)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int TakeSkillPoint(int skillPoint)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int GainSkillPoint(int skillPoint)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool IsAlive()
-        {
-            throw new NotImplementedException();
+            return totalDamage;
         }
     }
 }

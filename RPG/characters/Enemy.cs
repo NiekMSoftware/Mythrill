@@ -127,11 +127,6 @@ namespace RPG.characters
             return enemy;
         }
 
-        public override void Defend()
-        {
-            base.Defend();
-        }
-
         public int RemoveSkillPoint(int skillPoint)
         {
             throw new NotImplementedException();
