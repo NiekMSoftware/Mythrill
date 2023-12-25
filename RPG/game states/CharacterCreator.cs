@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using RPG.characters;
 using RPG.characters.character_classes;
-using Type = RPG.characters.Type;
 
 namespace RPG.game_states
 {
@@ -99,23 +98,23 @@ namespace RPG.game_states
                 {
                     case 1:
                         Console.Clear();
-                        CreateCharacter(new Bard(Type.Player));
+                        CreateCharacter(new Bard());
                         break;
                     case 2:
                         Console.Clear();
-                        CreateCharacter(new Berserk(Type.Player));
+                        CreateCharacter(new Berserk());
                         break;
                     case 3:
                         Console.Clear();
-                        CreateCharacter(new Knight(Type.Player));
+                        CreateCharacter(new Knight());
                         break;
                     case 4:
                         Console.Clear();
-                        CreateCharacter(new Warlock(Type.Player));
+                        CreateCharacter(new Warlock());
                         break;
                     case 5:
                         Console.Clear();
-                        CreateCharacter(new Wizard(Type.Player));
+                        CreateCharacter(new Wizard());
                         break;
                     default:
                         Console.Write("Index out of bounds!\n" + "Please enter a valid index!\n");

@@ -5,14 +5,6 @@
     /// </summary>
     public class Warlock : Character
     {
-        public Warlock(Type type)
-        {
-            characterType = type;
-
-            maxHealth = 10;
-            health = MaxHealth;
-        }
-
         public override string ToString()
         {
             return "Warlock";

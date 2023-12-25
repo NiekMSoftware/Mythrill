@@ -36,7 +36,6 @@ namespace RPG.characters
 
         public Enemy()
         {
-            characterType = Type.Enemy;
             health = 10;
         }
 
@@ -46,16 +45,7 @@ namespace RPG.characters
             var random = new Random();
 
             // Set enemy's class
-            var enemyClass = random.Next(0, 5);
-            enemy = enemyClass switch
-            {
-                0 => new Bard(Type.Enemy),
-                1 => new Berserk(Type.Enemy),
-                2 => new Knight(Type.Enemy),
-                3 => new Warlock(Type.Enemy),
-                4 => new Wizard(Type.Enemy),
-                _ => enemy
-            };
+            var enemyType = random.Next(0, 5);
 
             // Set enemy's race
             do
@@ -136,5 +126,16 @@ namespace RPG.characters
         {
             return 0;
         }
+
+        
+    }
+
+    enum EnemyType
+    {
+        None,
+        Skeleton,
+        Valkyrie,
+        Goblin,
+        Warrior
     }
 }

@@ -1,7 +1,6 @@
 ﻿using RPG.characters;
 using RPG.characters.character_classes;
 using RPG.interfaces;
-using Type = RPG.characters.Type;
 
 namespace RPG
 {

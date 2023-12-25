@@ -25,8 +25,6 @@
 
             characterRace = Race.None;
             characterGender = Gender.None;
-            characterType = Type.None;
-
         }
 
         protected string name;
@@ -145,8 +143,7 @@
 
         public Race characterRace;
         public Gender characterGender;
-        public Type characterType;
-
+        
         #endregion
 
         public void TakeDamage(int damage)
@@ -173,12 +170,5 @@
         Male,
         Female,
         None
-    }
-
-    public enum Type
-    {
-        None,
-        Player,
-        Enemy
     }
 }

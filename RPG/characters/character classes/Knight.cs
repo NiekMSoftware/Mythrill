@@ -5,11 +5,6 @@
     /// </summary>
     public class Knight : Character
     {
-        public Knight(Type type)
-        {
-            characterType = type;
-        }
-
         public override string ToString()
         {
             return "Knight";
