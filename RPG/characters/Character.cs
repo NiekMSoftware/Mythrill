@@ -10,6 +10,8 @@ namespace RPG.characters
     {
         public void Attack(Character target)
         {
+            Console.WriteLine($"{Name} dealt {CalculateDamage()} damage to {target.Name}");
+
             // Deal damage to target
             target.TakeDamage(CalculateDamage());
         }

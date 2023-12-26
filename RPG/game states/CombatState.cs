@@ -30,47 +30,49 @@ namespace RPG.game_states
         private void InstantiateFight(Enemy enemy)
         {
             // TODO: Start the fight in a loop
-            Console.WriteLine($"Player: {player.Name} | {player} is against {enemy.Name} | {enemy}");
+            Console.WriteLine($"{player.Name} vs. {enemy.Name}");
 
-            Gui.ShowOptions(1, "Attack");
-            Gui.ShowOptions(2, "Defend");
-            Gui.ShowOptions(3, "Use Skill");
+            while (player.Health > 0 && enemy.Health > 0)
+            {
+                // Player's turn
+                Console.WriteLine($"{player.Name} turn.");
 
-            // process player input
-            if (player.IsAlive())
-            {
-                ProcessInput(Gui.GetInput("> "));
-            }
-            else
-            {
-                return;
+                Gui.ShowOptions(1, "Attack");
+                Gui.ShowOptions(2, "Defend");
+
+                int input = Gui.GetInput("> ");
+                switch (input)
+                {
+                    case 1:
+                        player.Attack(enemy);
+                        break;
+                    case 2:
+                        player.Defend(enemy);
+                        break;
+                    default:
+                        Console.WriteLine($"Index: {input} was out of bounds!\n" +
+                                          $"You lost your turn!");
+                        break;
+                }
+
+                if (enemy.Health <= 0)
+                {
+                    Console.WriteLine($"{enemy.Name} has been defeated!\n" +
+                                      $"You won the fight!");
+                    break;
+                }
+
+                // Enemy's turn
+                enemy.Attack(player);   // for now attack the player
+                if (player.Health <= 0)
+                {
+                    Console.WriteLine($"{player.Name} has been defeated!\n" +
+                                      $"You lost the fight!");
+                    break;
+                }
             }
 
-            // process enemy action
-            if (enemy.IsAlive())
-            {
-                enemy.Attack(player);
-            }
-        }
-
-        public override void ProcessInput(int input)
-        {
-            switch (input)
-            {
-                case 1:
-                    player.Attack(enemy);
-                    break;
-                case 2:
-                    player.Defend(enemy);
-                    break;
-                case 3:
-                    player.UseSkill(enemy);
-                    break;
-                default:
-                    Console.WriteLine("You gave in a wrong input.\n" +
-                                      "You lost your move!");
-                    break;
-            }
+            endState = true;
         }
     }
 }

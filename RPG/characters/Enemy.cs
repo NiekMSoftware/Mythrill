@@ -46,6 +46,22 @@ namespace RPG.characters
 
             // Set enemy's class
             var enemyType = random.Next(0, 5);
+            switch (enemyType)
+            {
+                case 0:
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                default:
+                    Debug.WriteLine($"{CreateEnemy(enemy)}: Missed the range.");
+                    break;
+            }
 
             // Set enemy's race
             do
