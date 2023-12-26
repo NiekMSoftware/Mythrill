@@ -1,4 +1,6 @@
-﻿using RPG.characters;
+﻿using System.Diagnostics;
+using RPG.characters;
+using RPG.game_states;
 using RPG.interfaces;
 
 namespace RPG.player_classes
@@ -10,10 +12,11 @@ namespace RPG.player_classes
             health = 10;
         }
 
-        public static Player GetPlayer(Player player)
+        public static Character GetPlayer(Character player)
         {
-
-
+            Debug.Close();
+            Debug.WriteLine($"Returning {player}\n" +
+                            $"Player's Name is : {player.Name}");
             return player;
         }
     }

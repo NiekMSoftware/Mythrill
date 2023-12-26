@@ -9,6 +9,7 @@ namespace RPG.game_states
         public CharacterCreator(Stack<GameState> gameStates, List<Character> characters)
             : base(gameStates, characters)
         {
+            this.characters = characters;
         }
 
         public override void Update()

@@ -15,6 +15,12 @@ namespace RPG.interfaces
         void Attack(Character target);
 
         /// <summary>
+        /// Defend() is called to reduce the damage taken by the enemy!
+        /// </summary>
+        /// <param name="target"></param>
+        void Defend(Character target);
+
+        /// <summary>
         /// A skill will deal more damage than a regular attack.
         /// Use this method only when the Character saved up enough points.
         /// </summary>

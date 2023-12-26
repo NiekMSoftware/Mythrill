@@ -5,6 +5,12 @@
     /// </summary>
     public class Bard : Character
     {
+        public Bard()
+        {
+            maxHealth = 30;
+            health = maxHealth;
+        }
+
         public override string ToString()
         {
             return "Bard";

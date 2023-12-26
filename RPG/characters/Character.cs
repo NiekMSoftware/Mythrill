@@ -14,6 +14,11 @@ namespace RPG.characters
             target.TakeDamage(CalculateDamage());
         }
 
+        public void Defend(Character target)
+        {
+            throw new NotImplementedException("Not yet implemented.");
+        }
+
         public void UseSkill(Character target)
         {
             // TODO: Implement Skill logic

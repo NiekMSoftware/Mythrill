@@ -39,7 +39,7 @@ namespace RPG.characters
             health = 10;
         }
 
-        public static Character CreateEnemy(Character enemy)
+        public Character CreateEnemy(Character enemy)
         {
             // Instantiate a random value
             var random = new Random();
@@ -112,9 +112,9 @@ namespace RPG.characters
             return enemy;
         }
 
-        public static Enemy EnemyChoice(Enemy enemy)
+        public static Character EnemyChoice(Enemy enemy)
         {
-            return enemy;
+            return new Enemy();
         }
 
         public int RemoveSkillPoint(int skillPoint)

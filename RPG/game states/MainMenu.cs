@@ -8,7 +8,7 @@ namespace RPG.game_states
         public MainMenu(Stack<GameState> gameStates, List<Character> characters) 
             : base(gameStates, characters)
         {
-            Debug.WriteLine("Created the MainMenu State");
+            
         }
 
         public override void Update()
@@ -29,8 +29,17 @@ namespace RPG.game_states
             switch (input)
             {
                 case 1:
-                    Console.WriteLine("Starting Game");
-                    gameStates.Push(new CombatState(gameStates, characters));
+                    if (characters.Count == 0)
+                    {
+                        Console.WriteLine("You don't have any Characters yet.\n" +
+                                          "(press any key to continue)");
+                        Console.ReadKey();
+                        Console.Clear();
+                    }
+                    else
+                    {
+                        gameStates.Push(new SelectCharacter(gameStates, characters));
+                    }
                     break;
                 case 2:
                     Console.Clear();
