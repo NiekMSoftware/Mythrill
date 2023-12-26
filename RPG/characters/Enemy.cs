@@ -39,7 +39,7 @@ namespace RPG.characters
             health = 10;
         }
 
-        public Character CreateEnemy(Character enemy)
+        public Enemy CreateEnemy(Enemy enemy)
         {
             // Instantiate a random value
             var random = new Random();
