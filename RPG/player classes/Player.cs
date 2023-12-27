@@ -14,7 +14,6 @@ namespace RPG.player_classes
 
         public static Character GetPlayer(Character player)
         {
-            Debug.Close();
             Debug.WriteLine($"Returning {player}\n" +
                             $"Player's Name is : {player.Name}");
             return player;

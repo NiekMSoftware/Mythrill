@@ -5,6 +5,8 @@ namespace RPG.game_states
 {
     public class SelectCharacter : GameState
     {
+        private bool choseCharacter;
+
         public SelectCharacter(Stack<GameState> gameStates, List<Character> characters) : 
             base(gameStates, characters)
         {
@@ -13,13 +15,19 @@ namespace RPG.game_states
 
         public override void Update()
         {
-            Gui.GameState("Select your Character");
-
-            gameStates.Push(new CombatState(gameStates, characters, Selection(characters)));
-            endState = true;
+            if (!choseCharacter)
+            {
+                gameStates.Push(new CombatState(gameStates, characters, 
+                    Selection(characters)));
+            }
+            else
+            {
+                endState = true;
+                Debug.WriteLine($"Popped {this}");
+            }
         }
 
-        public static Character Selection(List<Character> characters)
+        public Character Selection(List<Character> characters)
         {
             Character selectedCharacter = null;
 
@@ -40,6 +48,7 @@ namespace RPG.game_states
                 Console.WriteLine("Out of bounds!");
             }
 
+            choseCharacter = true;
             return selectedCharacter;
         }
     }

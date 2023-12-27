@@ -19,6 +19,9 @@ namespace RPG.game_states
         // Protected boolean to check if the state is ending
         protected bool endState;
 
+        // Protected boolean to check if the combat has ended
+        protected bool endCombat;
+
         // Constant int to keep the capacity up, this property is on private
         private const int LIST_SIZE = 10;
 

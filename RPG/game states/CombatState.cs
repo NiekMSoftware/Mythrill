@@ -24,7 +24,15 @@ namespace RPG.game_states
         public override void Update()
         {
             Gui.GameState("Combat State");
-            InstantiateFight(enemy);
+            if (!endCombat)
+            {
+                InstantiateFight(enemy);
+            }
+            else
+            {
+                Debug.WriteLine($"Popping {this}");
+                endState = true;
+            }
         }
 
         private void InstantiateFight(Enemy enemy)
@@ -72,7 +80,7 @@ namespace RPG.game_states
                 }
             }
 
-            endState = true;
+            endCombat = true;
         }
     }
 }
