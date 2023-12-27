@@ -146,15 +146,6 @@
         public Decision characterDecision;
         
         #endregion
-
-        public void TakeDamage(int damage)
-        {
-            Health -= damage;
-            if (Health < 0)
-            {
-                Health = 0;
-            }
-        }
     }
 
     public enum Race

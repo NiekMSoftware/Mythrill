@@ -14,6 +14,11 @@ namespace RPG
         /// <param name="enemy"></param>
         public static void ResolveCombat(Character player, Character enemy)
         {
+            Console.WriteLine($"Player Name: {player.Name}\n" +
+                              $"Player health: {player.Health}/{player.MaxHealth}\n");
+            Console.WriteLine($"Enemy Name: {enemy.Name}\n" +
+                              $"Enemy health: {enemy.Health}/{enemy.MaxHealth}");
+
             Gui.ShowOptions(1, "Attack");
             Gui.ShowOptions(2, "Defend");
             Gui.ShowOptions(3, "Parry");
@@ -21,14 +26,9 @@ namespace RPG
             int playerDecisionNumber = InputSystem.GetPlayerDecision("> ");
             int aiDecision = InputSystem.GetAiDecision();
 
-            Console.WriteLine($"Player Name: {player.Name}\n" +
-                              $"Player health: {player.Health}/{player.MaxHealth}\n");
-            Console.WriteLine($"Enemy Name: {enemy.Name}\n" +
-                              $"Enemy health: {enemy.Health}/{enemy.MaxHealth}");
-
             // Handle input
-            HandleInput(playerDecisionNumber, player);
-            HandleInput(aiDecision, enemy);
+            HandleInput(player, playerDecisionNumber, player);
+            HandleInput(enemy, aiDecision, player);
 
             // Player Decision
             Console.WriteLine($"Player decided to {player.characterDecision}!");
@@ -36,36 +36,21 @@ namespace RPG
             // AI Decision
             Console.WriteLine($"Enemy decided to {enemy.characterDecision}!");
 
-            // Resolve combat
-            if (player.characterDecision == Decision.Attack)
+            switch (player.characterDecision)
             {
-                if (enemy.characterDecision == Decision.Parry && RandomChance(PARRY_SUCCESS_CHANCE))
-                {
+                // Resolve combat
+                case Decision.Attack when enemy.characterDecision == Decision.Parry && RandomChance(PARRY_SUCCESS_CHANCE):
                     Console.WriteLine("AI Successfully parried the player's attack!");
-                }
-                else
-                {
-                    int damageDealt = player.Attack(enemy);
-                    Console.WriteLine($"Player dealt {damageDealt} damage to the enemy!\n");
-                }
-            }
-            else if (player.characterDecision == Decision.Defend)
-            {
-                if (enemy.characterDecision == Decision.Attack && RandomChance(DEFEND_SUCCESS_CHANCE))
-                {
+                    break;
+                case Decision.Attack:
+                case Decision.Defend when enemy.characterDecision == Decision.Attack && RandomChance(DEFEND_SUCCESS_CHANCE):
                     Console.WriteLine("Player successfully defended against the AI's attack!");
-                }
-                else
-                {
+                    break;
+                default:
                     int damageTaken = enemy.Attack(player);
-                    Console.WriteLine($"Player took {damageTaken} damage from the AI!\n");
-                }
+                    Console.WriteLine($"Player took {damageTaken} damage from the AI!");
+                    break;
             }
-
-            Console.WriteLine($"Player Name: {player.Name}\n" +
-                              $"Player health: {player.Health}/{player.MaxHealth}\n");
-            Console.WriteLine($"Enemy Name: {enemy.Name}\n" +
-                              $"Enemy health: {enemy.Health}/{enemy.MaxHealth}");
         }
 
         public static void StartCombat(Character player, Character enemy)
@@ -75,38 +60,43 @@ namespace RPG
             while (player.Health > 0 && enemy.Health > 0)
             {
                 ResolveCombat(player, enemy);
-            }
 
-            if (player.Health <= 0)
-            {
-                Console.WriteLine("Player has been defeated. Game Over!");
-            }
-            else
-            {
-                Console.WriteLine("Enemy has been defeated. Victory!");
+                // Check if the enemy is defeated
+                if (enemy.Health <= 0)
+                {
+                    Console.WriteLine("Player defeated the enemy. Victory!");
+                    break;
+                } 
+                if (player.Health <= 0)
+                {
+                    Console.WriteLine("Player was defeated by the enemy. Game Over!");
+                    break;
+                }
             }
 
             Console.WriteLine("=== Combat End ===");
         }
 
-        public static void HandleInput(int input, Character character)
+        public static void HandleInput(Character decisionMaker, int input, Character target)
         {
             switch (input)
             {
                 case 1:
-                    character.characterDecision = Decision.Attack;
+                    decisionMaker.Attack(target);
                     break;
                 case 2:
-                    character.characterDecision = Decision.Defend;
+                    decisionMaker.characterDecision = Decision.Defend;
                     break;
                 case 3:
-                    character.characterDecision = Decision.Parry;
+                    decisionMaker.Parry(target);
                     break;
                 default:
-                    Console.WriteLine("Index out of bounds!\n" +
-                                      $"{character} lost their turn!");
+                    Console.WriteLine("Invalid decision number!");
                     break;
             }
+
+            // Set decision after handling input
+            decisionMaker.characterDecision = (Decision)input;
         }
 
         private static bool RandomChance(double successChance)

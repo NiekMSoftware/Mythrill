@@ -28,7 +28,7 @@ namespace RPG.game_states
             Gui.GameState("Combat State");
             if (!endCombat)
             {
-                InstantiateFight(enemy);
+                InstantiateFight();
             }
             else
             {
@@ -37,48 +37,7 @@ namespace RPG.game_states
             }
         }
 
-        private void PlayerDecision()
-        {
-            if (player == null)
-                return;
-
-            // TODO: Create a GUI for the player
-            Gui.ShowOptions(1, "Attack");
-            Gui.ShowOptions(2, "Defend");
-            Console.WriteLine($"Player Health: {player.Health}/{player.MaxHealth}\n" +
-                              $"Enemy Health: {enemy.Health}/{enemy.MaxHealth}");
-
-            // Gather Input and switch it.
-            int input = Gui.GetInput("> ");
-            switch (input)
-            {
-                case 1:
-                    player.characterDecision = Decision.Attack;
-                    break;
-                case 2:
-                    player.characterDecision = Decision.Defend;
-                    break;
-                default:
-                    Console.WriteLine($"Index: {input} was out of bounds!\n" +
-                                      $"You lost your turn!");
-                    break;
-            }
-        }
-
-        private void ApplyPlayerDecision()
-        {
-            switch (player?.characterDecision)
-            {
-                case Decision.Attack:
-                    player.Attack(enemy);
-                    break;
-                case Decision.Defend:
-                    player.Defend(enemy);
-                    break;
-            }
-        }
-
-        private void InstantiateFight(Enemy enemy)
+        private void InstantiateFight()
         {
             // TODO: Start the fight in a loop
             if (player == null)
