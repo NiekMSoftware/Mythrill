@@ -12,13 +12,20 @@ namespace RPG.interfaces
         /// Function Attack() is used to attack the opposing Character target.
         /// </summary>
         /// <param name="target"></param>
-        void Attack(Character target);
+        int Attack(Character target);
 
         /// <summary>
         /// Defend() is called to reduce the damage taken by the enemy!
         /// </summary>
         /// <param name="target"></param>
-        void Defend(Character target);
+        int Defend(Character target);
+
+        /// <summary>
+        /// Parry() is called when the opposing Character tries to Attack.
+        /// Mainly this function is called for the AI (at this time).
+        /// </summary>
+        /// <param name="target"></param>
+        void Parry(Character target);
 
         /// <summary>
         /// A skill will deal more damage than a regular attack.

@@ -1,4 +1,5 @@
-﻿using RPG.interfaces;
+﻿using System.Runtime.InteropServices;
+using RPG.interfaces;
 
 namespace RPG.characters
 {
@@ -8,21 +9,22 @@ namespace RPG.characters
     /// </summary>
     public abstract class Character : CharacterData, ICharacter
     {
-        public void Attack(Character target)
-        {
-            Console.WriteLine($"{Name} dealt {CalculateDamage()} damage to {target.Name}");
+        Random random = new Random();
 
-            // Deal damage to target
-            target.TakeDamage(CalculateDamage());
+        public int Attack(Character target)
+        {
+            int damage = CalculateDamage();
+
+            return damage;
         }
 
-        public void Defend(Character target)
+        public int Defend(Character target)
         {
             // Calculate the damage upon calling this action
             int incomingDamage = target.CalculateDamage();
 
             // Apply defense to reduce damage taken
-            int defenseFactor = 5;  // Might adjust later
+            int defenseFactor = 2;  // Might adjust later
             int reducedDamage = incomingDamage - (Defense * defenseFactor);
 
             // Ensure damage is not negative
@@ -30,6 +32,60 @@ namespace RPG.characters
 
             Health -= reducedDamage;
             Console.WriteLine($"{Name} defended and received {reducedDamage} damage!");
+
+            return reducedDamage;
+        }
+
+        public void Parry(Character target)
+        {
+            // Calculate the damage upon calling this action
+            int incomingDamage = target.CalculateDamage();
+
+            int parryReduction = 2; // value might need balancing
+            incomingDamage -= parryReduction;
+
+            // Ensure that the damage is not negative
+            incomingDamage = Math.Max(incomingDamage, 0);
+
+            Console.WriteLine($"{Name} parried the attack and dealt {incomingDamage} damage!");
+        }
+
+        public Decision AiDecision(Character target)
+        {
+            Decision aiDecision;
+
+            switch (target.characterDecision)
+            {
+                case Decision.Attack:
+                    int decision = random.Next(1, 4);
+                    aiDecision = (Decision)decision;
+                    return characterDecision;
+                case Decision.Defend:
+                    aiDecision = Decision.Attack;
+                    break;
+                default:
+                    aiDecision = Decision.Attack;
+                    break;
+            }
+
+            characterDecision = aiDecision;
+            return aiDecision;
+        }
+
+        public void ProcessDecision(Character target)
+        {
+            switch (AiDecision(target))
+            {
+                case Decision.Attack:
+                    Attack(target);
+                    break;
+                case Decision.Defend:
+                    Defend(target);
+                    break;
+                case Decision.Parry:
+                    Parry(target);
+                    break;
+            }
         }
 
         public void UseSkill(Character target)
@@ -44,7 +100,6 @@ namespace RPG.characters
             var modifiedDamage = (int)(baseDamage * (1 + Strength / 10.0));
 
             // introduce random variability
-            Random random = new Random();
             var variability = random.NextDouble() * 0.2 + 0.9;  // between 0.2 and 0.9
             var totalDamage = (int)(modifiedDamage * variability);
 

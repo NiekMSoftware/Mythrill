@@ -20,6 +20,7 @@ namespace RPG.game_states
             Player.GetPlayer(character);
 
             enemy.CreateEnemy(enemy);
+            enemy.Health = 30;
         }
 
         public override void Update()
@@ -44,6 +45,8 @@ namespace RPG.game_states
             // TODO: Create a GUI for the player
             Gui.ShowOptions(1, "Attack");
             Gui.ShowOptions(2, "Defend");
+            Console.WriteLine($"Player Health: {player.Health}/{player.MaxHealth}\n" +
+                              $"Enemy Health: {enemy.Health}/{enemy.MaxHealth}");
 
             // Gather Input and switch it.
             int input = Gui.GetInput("> ");
@@ -62,42 +65,15 @@ namespace RPG.game_states
             }
         }
 
-        private void EnemyDecision()
+        private void ApplyPlayerDecision()
         {
-            // Simulate enemy-decision making
-            int decision = random.Next(1, 3);   // 1 for Attack, 2 for Defend
-            enemy.characterDecision = (decision == 1) ? Decision.Attack : Decision.Defend;
-        }
-
-        private void ApplyDecisions()
-        {
-            if (player == null)
-                return;
-
-            // Apply player decision
-            switch (player.characterDecision)
+            switch (player?.characterDecision)
             {
                 case Decision.Attack:
                     player.Attack(enemy);
                     break;
                 case Decision.Defend:
                     player.Defend(enemy);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            // Apply enemy decision
-            switch (enemy.characterDecision)
-            {
-                case Decision.Attack:
-                    enemy.Attack(player);
-                    break;
-                case Decision.Defend:
-                    enemy.Defend(player);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
                     break;
             }
         }
@@ -108,25 +84,7 @@ namespace RPG.game_states
             if (player == null)
                 return;
 
-            while (player.Health > 0 && enemy.Health > 0)
-            {
-                PlayerDecision();
-                EnemyDecision();
-                ApplyDecisions();
-
-                if (enemy.Health <= 0)
-                {
-                    Console.WriteLine($"{enemy.Name} has been defeated!\n" +
-                                      $"You won the fight!");
-                    break;
-                }
-
-                if (player.Health > 0) continue;
-
-                Console.WriteLine($"{player.Name} has been defeated!\n" +
-                                  $"You won the fight!");
-                break;
-            }
+            CombatManager.StartCombat(player, enemy);
 
             endCombat = true;
         }

@@ -175,7 +175,9 @@
 
     public enum Decision
     {
+        None,
         Attack,
-        Defend
+        Defend,
+        Parry
     }
 }
