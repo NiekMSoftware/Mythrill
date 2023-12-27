@@ -18,13 +18,24 @@ namespace RPG.characters
 
         public void Defend(Character target)
         {
-            throw new NotImplementedException("Not yet implemented.");
+            // Calculate the damage upon calling this action
+            int incomingDamage = target.CalculateDamage();
+
+            // Apply defense to reduce damage taken
+            int defenseFactor = 5;  // Might adjust later
+            int reducedDamage = incomingDamage - (Defense * defenseFactor);
+
+            // Ensure damage is not negative
+            reducedDamage = Math.Max(reducedDamage, 0);
+
+            Health -= reducedDamage;
+            Console.WriteLine($"{Name} defended and received {reducedDamage} damage!");
         }
 
         public void UseSkill(Character target)
         {
             // TODO: Implement Skill logic
-            Attack(target);
+            Attack(target); // for now just attack
         }
 
         public int CalculateDamage()

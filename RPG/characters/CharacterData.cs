@@ -143,6 +143,7 @@
 
         public Race characterRace;
         public Gender characterGender;
+        public Decision characterDecision;
         
         #endregion
 
@@ -170,5 +171,11 @@
         Male,
         Female,
         None
+    }
+
+    public enum Decision
+    {
+        Attack,
+        Defend
     }
 }
