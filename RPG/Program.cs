@@ -1,4 +1,5 @@
-﻿using RPG.characters;
+﻿using System.Diagnostics;
+using RPG.characters;
 using RPG.characters.character_classes;
 using RPG.interfaces;
 
@@ -8,8 +9,11 @@ namespace RPG
     {
         private static void Main(string[] args)
         {
-            var game = new Game();
-            game.RunLoop();
+            //var game = new Game();
+            //game.RunLoop();
+
+            PlayerMovement movement = new();
+            movement.Start();
         }
     }
 }
