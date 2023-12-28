@@ -47,6 +47,8 @@
         protected int wisdom;
         protected int charisma;
 
+        protected bool defending;
+
         #region Public Properties
 
         public string Name
@@ -139,7 +141,15 @@
             set => charisma = value;
         }
 
+        public bool Defending
+        {
+            get => defending;
+            set => defending = value;
+        }
+
         public bool IsAlive() => Health > 0;
+
+        public bool IsDefending() => Defending;
 
         public Race characterRace;
         public Gender characterGender;

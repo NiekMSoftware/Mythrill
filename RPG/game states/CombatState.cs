@@ -8,7 +8,7 @@ namespace RPG.game_states
 {
     public class CombatState : GameState
     {
-        private Enemy enemy = new();
+        private Enemy enemy = new Enemy();
         private Character? player;
         private Random random = new Random();
 

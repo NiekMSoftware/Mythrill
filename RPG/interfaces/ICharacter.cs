@@ -25,7 +25,7 @@ namespace RPG.interfaces
         /// Mainly this function is called for the AI (at this time).
         /// </summary>
         /// <param name="target"></param>
-        void Parry(Character target);
+        int Parry(Character target);
 
         /// <summary>
         /// A skill will deal more damage than a regular attack.
