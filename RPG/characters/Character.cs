@@ -14,14 +14,14 @@ namespace RPG.characters
 
         private const int DefenseFactor = 2;
 
-        public int Attack(Character target)
+        public int Attack()
         {
             int damage = CalculateDamage();
 
             return damage;
         }
 
-        public int Defend(Character target)
+        public int Defend()
         {
             // Apply defense to reduce damage taken
             int incomingDamage = CalculateDamage();
@@ -33,10 +33,10 @@ namespace RPG.characters
             return reducedDamage;
         }
 
-        public int Parry(Character target)
+        public int Parry()
         {
             // Calculate the damage upon calling this action
-            int incomingDamage = target.CalculateDamage();
+            int incomingDamage = CalculateDamage();
 
             int parryReduction = 5; // value might need balancing
             incomingDamage -= parryReduction;
@@ -47,10 +47,10 @@ namespace RPG.characters
             return incomingDamage;
         }
 
-        public void UseSkill(Character target)
+        public void UseSkill()
         {
             // TODO: Implement Skill logic
-            Attack(target); // for now just attack
+            Attack(); // for now just attack
         }
 
         public int CalculateDamage()

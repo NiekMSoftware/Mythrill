@@ -47,7 +47,7 @@ namespace RPG
                     Debug.WriteLine("Enemy parried!");
 
                     // gather damage and output it
-                    enemyDamage = enemy.Parry(player);
+                    enemyDamage = enemy.Parry();
                     player.Health -= enemyDamage;
                     Debug.WriteLine($"{player} health: {player.Health}");
                     break;
@@ -55,14 +55,14 @@ namespace RPG
                     Debug.WriteLine($"{enemy} failed to parry!");
 
                     // gather damage and output it
-                    playerDamage = player.Attack(enemy);
+                    playerDamage = player.Attack();
                     enemy.Health -= playerDamage;
                     Debug.WriteLine($"{enemy} health: {enemy.Health}");
                     break;
                 case Decision.Attack when enemy.characterDecision == Decision.Defend && aiDefendSuccess:
                     Debug.WriteLine($"{enemy} has blocked the attack!");
                     // save the damage
-                    playerDamage = enemy.Defend(player);
+                    playerDamage = enemy.Defend();
 
                     // reduce the health
                     enemy.Health -= playerDamage;
@@ -70,15 +70,15 @@ namespace RPG
                     break;
                 case Decision.Attack when enemy.characterDecision == Decision.Defend && !aiDefendSuccess:
                     Debug.WriteLine($"{enemy} has failed to block the attack!");
-                    playerDamage = player.Attack(enemy);
+                    playerDamage = player.Attack();
                     enemy.Health -= playerDamage;
                     Debug.WriteLine($"{enemy} health: {enemy.Health}");
                     break;
                 case Decision.Attack when enemy.characterDecision == Decision.Attack:
                     Debug.WriteLine("Both the Player and Ai attacked!");
                     // save both damage outputs
-                    playerDamage = player.Attack(enemy);
-                    enemyDamage = enemy.Attack(player);
+                    playerDamage = player.Attack();
+                    enemyDamage = enemy.Attack();
 
                     // reduce health
                     player.Health -= enemyDamage;
@@ -88,14 +88,14 @@ namespace RPG
                     break;
                 case Decision.Defend when enemy.characterDecision == Decision.Attack && playerDefendSuccess:
                     Debug.WriteLine($"{player} successfully defended the attack!");
-                    enemyDamage = player.Defend(enemy);
+                    enemyDamage = player.Defend();
                     player.Health -= enemyDamage;
 
                     Debug.WriteLine($"{player} health: {player.Health}");
                     break;
                 case Decision.Defend when enemy.characterDecision == Decision.Attack && !playerDefendSuccess:
                     Debug.WriteLine($"{player} failed to defend!");
-                    enemyDamage = enemy.Attack(player);
+                    enemyDamage = enemy.Attack();
                     player.Health -= enemyDamage;
 
                     Debug.WriteLine($"{player} health: {player.Health}");
@@ -105,12 +105,12 @@ namespace RPG
                     break;
                 case Decision.Parry when enemy.characterDecision == Decision.Attack && playerParrySuccess:
                     Debug.WriteLine($"{player} successfully parried the attack!");
-                    playerDamage = player.Parry(enemy);
+                    playerDamage = player.Parry();
                     enemy.Health -= playerDamage;
                     break;
                 case Decision.Parry when enemy.characterDecision == Decision.Attack && !playerParrySuccess:
                     Debug.WriteLine($"{player} failed to parry the attack!");
-                    enemyDamage = enemy.Attack(player);
+                    enemyDamage = enemy.Attack();
                     player.Health -= enemyDamage;
                     break;
                 case Decision.Parry when enemy.characterDecision == Decision.Defend:
