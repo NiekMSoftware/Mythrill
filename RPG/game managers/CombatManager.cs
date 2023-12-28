@@ -1,7 +1,8 @@
 ﻿using System.Diagnostics;
 using RPG.characters;
+using RPG.user_interface;
 
-namespace RPG
+namespace RPG.game_managers
 {
     public class CombatManager
     {

@@ -1,6 +1,4 @@
-﻿using RPG.characters;
-
-namespace RPG
+﻿namespace RPG.user_interface
 {
     public class Gui
     {

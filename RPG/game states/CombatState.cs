@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics;
 using RPG.characters;
 using RPG.characters.character_classes;
+using RPG.game_managers;
 using RPG.interfaces;
 using RPG.player_classes;
+using RPG.user_interface;
 
 namespace RPG.game_states
 {
