@@ -1,0 +1,113 @@
+﻿namespace RPG
+{
+    public class RoomGenerator
+    {
+        // Create basic properties for a room
+        public static char[,] Room { get; set; }
+        public static int Width { get; set; }
+        public static int Height { get; set; }
+
+        // Create a constructor that takes width and height as parameters
+        public RoomGenerator(int width, int height)
+        {
+            // Set the width and height properties
+            Width = width;
+            Height = height;
+
+            // Create a new 2d char array with the width and height
+            Room = new char[width, height];
+
+            // Generate the room
+            GenerateRoom('#', ' ');
+
+            // Center the room
+            CenterRoom();
+
+            // Spawn the player
+            SpawnPlayer();
+        }
+        
+        // Create a method that generates a room and that also takes in two chars as parameters, this method will also hollow out the room
+        public void GenerateRoom(char wallChar, char floorChar)
+        {
+            // Loop through the 2d char array
+            for (int y = 0; y < Height; y++)
+            {
+                // Loop through the 2d char array
+                for (int x = 0; x < Width; x++)
+                {
+                    // If the current position is on the edge of the 2d char array
+                    if (x == 0 || x == Width - 1 || y == 0 || y == Height - 1)
+                    {
+                        // Set the current position in the 2d char array to the wall char
+                        Room[x, y] = wallChar;
+                    }
+                    // Else if the current position is not on the edge of the 2d char array
+                    else
+                    {
+                        // Set the current position in the 2d char array to the floor char
+                        Room[x, y] = floorChar;
+                    }
+                }
+            }
+        }
+
+        // Create a method that will center the room to the console window
+        public void CenterRoom()
+        {
+            int consoleWidth = Console.WindowWidth;
+            int consoleHeight = Console.WindowHeight;
+
+            // Get the current console window width divided by 2
+            int halfConsoleWidth = consoleWidth / 2;
+
+            // Get the current console window height divided by 2
+            int halfConsoleHeight = consoleHeight / 2;
+
+            // Get the current room width divided by 2
+            int halfRoomWidth = Width / 2;
+
+            // Get the current room height divided by 2
+            int halfRoomHeight = Height / 2;
+
+            int startX = halfConsoleWidth - halfRoomWidth;
+            int startY = halfConsoleHeight - halfRoomHeight;
+
+            Console.Clear();
+
+            for (int y = 0; y < Height; y++)
+            {
+                for (int x = 0; x < Width; x++)
+                {
+                    Console.SetCursorPosition(startX + x, startY + y);
+                    Console.Write(Room[x, y]);
+                }
+            }
+        }
+
+        // Spawn the player and make sure it's in the center of the room and centered to the console window
+        public void SpawnPlayer()
+        {
+            int consoleWidth = Console.WindowWidth;
+            int consoleHeight = Console.WindowHeight;
+
+            // Get the current console window width divided by 2
+            int halfConsoleWidth = consoleWidth / 2;
+
+            // Get the current console window height divided by 2
+            int halfConsoleHeight = consoleHeight / 2;
+
+            // Get the current room width divided by 2
+            int halfRoomWidth = Width / 2;
+
+            // Get the current room height divided by 2
+            int halfRoomHeight = Height / 2;
+
+            int startX = halfConsoleWidth - halfRoomWidth;
+            int startY = halfConsoleHeight - halfRoomHeight;
+
+            // Set the current position in the 2d char array to the player char
+            Console.SetCursorPosition(startX + halfRoomWidth, startY + halfRoomHeight);
+        }
+    }
+}

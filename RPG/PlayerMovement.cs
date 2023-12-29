@@ -1,4 +1,5 @@
-﻿using RPG.exceptions;
+﻿using System.Diagnostics;
+using RPG.exceptions;
 
 namespace RPG
 {
@@ -14,8 +15,17 @@ namespace RPG
         {
             Console.CursorVisible = false;
 
-            Console.Clear();
-            WritePlayer();
+            // Set initial player position to the center of the room
+            x = RoomGenerator.Width / 2;
+            y = RoomGenerator.Height / 2;
+
+            // Calculate the center of the console window
+            int centerX = Console.WindowWidth / 2;
+            int centerY = Console.WindowHeight / 2;
+
+            // Set the current position in the 2d char array to the player char
+            Console.SetCursorPosition(centerX + x - RoomGenerator.Width / 2, centerY + y - RoomGenerator.Height / 2);
+            Console.Write(PlayerChar);
 
             while (true)
             {
@@ -33,53 +43,59 @@ namespace RPG
                 switch (key)
                 {
                     case ConsoleKey.DownArrow:
+                        Debug.WriteLine("Moved Down");
                         Move(0, 1);
                         break;
                     case ConsoleKey.UpArrow:
+                        Debug.WriteLine("Pressed Up");
                         Move(0, -1);
                         break;
                     case ConsoleKey.LeftArrow:
+                        Debug.WriteLine("Pressed Left");
                         Move(-1, 0);
                         break;
                     case ConsoleKey.RightArrow:
+                        Debug.WriteLine("Pressed Right");
                         Move(1, 0);
                         break;
                     case ConsoleKey.Escape:
+                        Debug.WriteLine("Pressed Escape, exiting app");
                         Environment.Exit(0);
                         break;
                 }
             }
         }
 
-        private void Move(int deltaX, int deltaY)
+        // Move the player
+        private void Move(int dx, int dy)
         {
-            // update the player pos
-            x += deltaX;
-            y += deltaY;
+            // Calculate new position
+            int newX = x + dx;
+            int newY = y + dy;
 
-            // check boundaries
-            if(x < 0) x = 0;
-            if(y < 0) y = 0;
+            // Get the room dimensions
+            int roomWidth = RoomGenerator.Width;
+            int roomHeight = RoomGenerator.Height;
 
-            // get the window dimensions
-            int windowWidth = Console.WindowWidth;
-            int windowHeight = Console.WindowHeight;
+            // Check if the new position is within the room boundaries
+            if (newX >= 1 && newX < roomWidth - 1 && newY >= 1 && newY < roomHeight - 1)
+            {
+                // Calculate the center of the console window
+                int centerX = Console.WindowWidth / 2;
+                int centerY = Console.WindowHeight / 2;
 
-            // check right and bottom boundaries
-            if (x >= windowWidth) x = windowWidth - 1;
-            if (y >= windowHeight) y = windowHeight - 1;
+                // Clear the current position
+                Console.SetCursorPosition(centerX + x - roomWidth / 2, centerY + y - roomHeight / 2);
+                Console.Write(' ');
 
-            // Redraw player
-            Console.Clear();
-            WritePlayer();
-        }
+                // Update the current position
+                x = newX;
+                y = newY;
 
-        private void WritePlayer()
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.SetCursorPosition(x, y);
-            Console.Write(PlayerChar);
-            Console.ResetColor();
+                // Set the current position in the 2d char array to the player char
+                Console.SetCursorPosition(centerX + x - roomWidth / 2, centerY + y - roomHeight / 2);
+                Console.Write(PlayerChar);
+            }
         }
     }
 }
