@@ -8,12 +8,6 @@ namespace RPG
         {
             var game = new Game();
             game.RunLoop();
-
-            //// call the RoomGenerator constructor and pass in the width and height
-            //RoomGenerator roomGenerator = new(40, 15);
-
-            //PlayerMovement movement = new();
-            //movement.Start();
         }
     }
 }
