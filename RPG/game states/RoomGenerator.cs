@@ -29,6 +29,9 @@ namespace RPG.game_states
             // Spawn the player
             SpawnPlayer();
 
+            // Spawn enemies
+            SpawnEnemies();
+
             PlayerMovement movement = new();
             movement.Start();
         }
@@ -117,6 +120,65 @@ namespace RPG.game_states
 
             // Set the current position in the 2d char array to the player char
             Console.SetCursorPosition(startX + halfRoomWidth, startY + halfRoomHeight);
+        }
+
+        // Create a method that will spawn in enemies in a room
+        public void FindPosEnemy()
+        {
+            // Create a random object
+            Random random = new();
+
+            // Create a random number between 1 and 5
+            int randomNum = random.Next(1, 5);
+
+            // Loop through the random number
+            for (int i = 0; i < randomNum; i++)
+            {
+                // Create a random x position
+                int randomX = random.Next(1, Width - 1);
+
+                // Create a random y position
+                int randomY = random.Next(1, Height - 1);
+
+                // Set the current position in the 2d char array to the enemy char
+                if (Room != null)
+                    Room[randomX, randomY] = 'E';
+            }
+        }
+        public void SpawnEnemies()
+        {
+            FindPosEnemy();
+
+            // Make sure that they spawn in the center of the room and centered to the console window
+            int consoleWidth = Console.WindowWidth;
+            int consoleHeight = Console.WindowHeight;
+
+            // Get the current console window width divided by 2
+            int halfConsoleWidth = consoleWidth / 2;
+            int halfConsoleHeight = consoleHeight / 2;
+
+            // Get the current room width divided by 2
+            int halfRoomWidth = Width / 2;
+            int halfRoomHeight = Height / 2;
+
+            int startX = halfConsoleWidth - halfRoomWidth;
+            int startY = halfConsoleHeight - halfRoomHeight;
+
+            // Loop through the 2d char array and print out the enemies accordingly
+            for (int y = 0; y < Height; y++)
+            {
+                // Loop through the 2d char array
+                for (int x = 0; x < Width; x++)
+                {
+                    // If the current position in the 2d char array is an enemy
+                    if (Room != null && Room[x, y] == 'E')
+                    {
+                        // Set the current position in the 2d char array to the enemy char
+                        Console.SetCursorPosition(startX + x, startY + y);
+                        Console.Write(Room[x, y]);
+                    }
+                }
+            }
         }
     }
 }

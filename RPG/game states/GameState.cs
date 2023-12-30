@@ -44,15 +44,13 @@ namespace RPG.game_states
         /// ProcessInput is used to process all regarding input within a switch statement
         /// </summary>
         /// <param name="input"></param>
-        public virtual void ProcessInput(int input){}
-        public virtual void ProcessInput(int input, Character playerCharacter){}
+        public virtual void ProcessInput(int input) { }
+        public virtual void ProcessInput(int input, Character playerCharacter) { }
 
         /// <summary>
         /// Update function to generate any GUI output
         /// </summary>
-        public virtual void Update()
-        {
-        }
+        public virtual void Update() { }
 
         /// <summary>
         /// Returns the boolean 'endState' either true or false
