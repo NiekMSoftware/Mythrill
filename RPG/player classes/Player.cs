@@ -12,7 +12,7 @@ namespace RPG.player_classes
             health = 10;
         }
 
-        public static Character GetPlayer(Character player)
+        public static Character? GetPlayer(Character? player)
         {
             Debug.WriteLine($"Returning {player}\n" +
                             $"Player's Name is : {player.Name}");

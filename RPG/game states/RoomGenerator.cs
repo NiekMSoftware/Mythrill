@@ -6,7 +6,7 @@ namespace RPG.game_states
     public class RoomGenerator : GameState
     {
         // Create basic properties for a room
-        public static char[,] Room { get; set; }
+        public static char[,]? Room { get; set; }
         public static int Width { get; set; }
         public static int Height { get; set; }
 
@@ -46,13 +46,15 @@ namespace RPG.game_states
                     if (x == 0 || x == Width - 1 || y == 0 || y == Height - 1)
                     {
                         // Set the current position in the 2d char array to the wall char
-                        Room[x, y] = wallChar;
+                        if (Room != null) 
+                            Room[x, y] = wallChar;
                     }
                     // Else if the current position is not on the edge of the 2d char array
                     else
                     {
                         // Set the current position in the 2d char array to the floor char
-                        Room[x, y] = floorChar;
+                        if (Room != null) 
+                            Room[x, y] = floorChar;
                     }
                 }
             }
@@ -86,7 +88,8 @@ namespace RPG.game_states
                 for (int x = 0; x < Width; x++)
                 {
                     Console.SetCursorPosition(startX + x, startY + y);
-                    Console.Write(Room[x, y]);
+                    if (Room != null) 
+                        Console.Write(Room[x, y]);
                 }
             }
         }

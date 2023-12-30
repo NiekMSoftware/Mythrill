@@ -15,7 +15,7 @@ namespace RPG.game_states
         private Random random = new Random();
 
         public CombatState(Stack<GameState> gameStates, List<Character> characters,
-                            Character character)
+                            Character? character)
             : base(gameStates, characters)
         {
             player = character;

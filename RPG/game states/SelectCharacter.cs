@@ -16,6 +16,8 @@ namespace RPG.game_states
 
         public override void Update()
         {
+            Gui.GameState("Select Character");
+
             if (!choseCharacter)
             {
                 gameStates.Push(new CombatState(gameStates, characters, 
@@ -28,9 +30,9 @@ namespace RPG.game_states
             }
         }
 
-        public Character Selection(List<Character> characters)
+        public Character? Selection(List<Character> characters)
         {
-            Character selectedCharacter = null;
+            Character? selectedCharacter = null;
 
             for (int i = 0; i < characters.Count; i++)
             {
@@ -50,7 +52,7 @@ namespace RPG.game_states
             }
 
             choseCharacter = true;
-            return selectedCharacter;
+            return selectedCharacter ?? null;
         }
     }
 }
