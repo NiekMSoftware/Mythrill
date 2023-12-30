@@ -1,4 +1,5 @@
-﻿using RPG.characters;
+﻿using System.Diagnostics;
+using RPG.characters;
 using RPG.user_interface;
 
 namespace RPG.game_states
@@ -122,7 +123,7 @@ namespace RPG.game_states
             Console.SetCursorPosition(startX + halfRoomWidth, startY + halfRoomHeight);
         }
 
-        // Create a method that will spawn in enemies in a room
+        // Create method that will find a random position for the enemy
         public void FindPosEnemy()
         {
             // Create a random object
@@ -145,8 +146,12 @@ namespace RPG.game_states
                     Room[randomX, randomY] = 'E';
             }
         }
+
         public void SpawnEnemies()
         {
+            // Keep track of how many enemies there are
+            int enemyCount = 0;
+
             FindPosEnemy();
 
             // Make sure that they spawn in the center of the room and centered to the console window
@@ -176,9 +181,12 @@ namespace RPG.game_states
                         // Set the current position in the 2d char array to the enemy char
                         Console.SetCursorPosition(startX + x, startY + y);
                         Console.Write(Room[x, y]);
+                        enemyCount++;
                     }
                 }
             }
+
+            Debug.WriteLine($"Enemies: {enemyCount}");
         }
     }
 }

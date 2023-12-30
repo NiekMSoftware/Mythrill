@@ -43,23 +43,18 @@ namespace RPG
                 switch (key)
                 {
                     case ConsoleKey.DownArrow:
-                        Debug.WriteLine("Moved Down");
                         Move(0, 1);
                         break;
                     case ConsoleKey.UpArrow:
-                        Debug.WriteLine("Pressed Up");
                         Move(0, -1);
                         break;
                     case ConsoleKey.LeftArrow:
-                        Debug.WriteLine("Pressed Left");
                         Move(-1, 0);
                         break;
                     case ConsoleKey.RightArrow:
-                        Debug.WriteLine("Pressed Right");
                         Move(1, 0);
                         break;
                     case ConsoleKey.Escape:
-                        Debug.WriteLine("Pressed Escape, exiting app");
                         Environment.Exit(0);
                         break;
                 }
