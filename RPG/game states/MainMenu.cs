@@ -39,7 +39,7 @@ namespace RPG.game_states
                     }
                     else
                     {
-                        gameStates.Push(new SelectCharacter(gameStates, characters));
+                       SelectMode();
                     }
                     break;
                 case 2:
@@ -55,6 +55,42 @@ namespace RPG.game_states
                 default:
                     Console.Write($"Index: {input} is out of bounds.\n" +
                                   $"Please enter a valid index!\n");
+                    break;
+            }
+        }
+
+        private void SelectMode()
+        {
+            Gui.GameState("Select a Mode");
+            Gui.ShowOptions(1, "Combat Mode");
+            Gui.ShowOptions(2, "Endless Mode");
+
+            // Make sure the player stays in the loop until they select a valid index
+            while (true)
+            {
+                ProcessSelection(Gui.GetInput("> "));
+
+                // if the player has selected a valid index, break out of the loop
+                if (gameStates.Count > 1)
+                {
+                    break;
+                }
+            }
+        }
+
+        private void ProcessSelection(int input)
+        {
+            switch (input)
+            {
+                case 1:
+                    gameStates.Push(new SelectCharacter(gameStates, characters));
+                    break;
+                case 2:
+                    gameStates.Push(new RoomGenerator(gameStates, characters, 40, 15));
+                    break;
+                default:
+                    Console.Write($"Input {input} is a invalid index!\n" +
+                                  "Please enter a valid index!\n");
                     break;
             }
         }

@@ -1,6 +1,9 @@
-﻿namespace RPG
+﻿using RPG.characters;
+using RPG.user_interface;
+
+namespace RPG.game_states
 {
-    public class RoomGenerator
+    public class RoomGenerator : GameState
     {
         // Create basic properties for a room
         public static char[,] Room { get; set; }
@@ -8,7 +11,7 @@
         public static int Height { get; set; }
 
         // Create a constructor that takes width and height as parameters
-        public RoomGenerator(int width, int height)
+        public RoomGenerator(Stack<GameState> gameStates, List<Character> characters, int width, int height) : base(gameStates, characters)
         {
             // Set the width and height properties
             Width = width;
@@ -25,8 +28,11 @@
 
             // Spawn the player
             SpawnPlayer();
+
+            PlayerMovement movement = new();
+            movement.Start();
         }
-        
+
         // Create a method that generates a room and that also takes in two chars as parameters, this method will also hollow out the room
         public void GenerateRoom(char wallChar, char floorChar)
         {

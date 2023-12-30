@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using RPG.characters;
-using RPG.characters.character_classes;
-using RPG.interfaces;
+﻿using RPG.game_states;
 
 namespace RPG
 {
@@ -9,14 +6,14 @@ namespace RPG
     {
         private static void Main(string[] args)
         {
-            //var game = new Game();
-            //game.RunLoop();
+            var game = new Game();
+            game.RunLoop();
 
-            // call the RoomGenerator constructor and pass in the width and height
-            RoomGenerator roomGenerator = new(40, 15);
+            //// call the RoomGenerator constructor and pass in the width and height
+            //RoomGenerator roomGenerator = new(40, 15);
 
-            PlayerMovement movement = new();
-            movement.Start();
+            //PlayerMovement movement = new();
+            //movement.Start();
         }
     }
 }
