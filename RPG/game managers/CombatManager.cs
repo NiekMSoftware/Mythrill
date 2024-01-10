@@ -40,6 +40,7 @@ namespace RPG.game_managers
             HandleInput(player, playerDecisionNumber, enemy);
             HandleInput(enemy, aiDecision, player);
 
+            // TODO: Get rid of the default occurence by checking all decisions
             // Switch decisions
             switch (player.characterDecision)
             {

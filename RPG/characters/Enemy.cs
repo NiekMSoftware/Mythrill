@@ -142,8 +142,6 @@ namespace RPG.characters
         {
             return 0;
         }
-
-        
     }
 
     enum EnemyType

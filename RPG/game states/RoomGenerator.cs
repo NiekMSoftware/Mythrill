@@ -43,7 +43,6 @@ namespace RPG.game_states
             // Loop through the 2d char array
             for (int y = 0; y < Height; y++)
             {
-                // Loop through the 2d char array
                 for (int x = 0; x < Width; x++)
                 {
                     // If the current position is on the edge of the 2d char array
