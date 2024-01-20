@@ -86,7 +86,7 @@ namespace RPG.game_states
                     gameStates.Push(new SelectCharacter(gameStates, characters));
                     break;
                 case 2:
-                    gameStates.Push(new RoomGenerator(gameStates, characters, 40, 15));
+                    //gameStates.Push(new RoomGenerator(gameStates, characters, 40, 15));
                     break;
                 default:
                     Console.Write($"Input {input} is a invalid index!\n" +
