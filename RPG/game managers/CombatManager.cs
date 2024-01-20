@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 using RPG.characters;
+using RPG.combat_strategy;
+using RPG.interfaces;
 using RPG.user_interface;
 
 namespace RPG.game_managers
@@ -8,6 +10,18 @@ namespace RPG.game_managers
     {
         private const double PARRY_SUCCESS_CHANCE = 0.7;
         private const double DEFEND_SUCCESS_CHANCE = 0.5;
+
+        /// <summary>
+        /// Strategies is a dictionary that saved all decision and handles it accordingly to each key-value.
+        /// </summary>
+        private static readonly Dictionary<(Decision, Decision), ICombatStrategy> Strategies = new Dictionary<(Decision, Decision), ICombatStrategy>
+        {
+            {(Decision.Attack, Decision.Parry), new AttackParryStrategy()},
+            {(Decision.Attack, Decision.Defend), new AttackDefendStrategy()},
+            {(Decision.Defend, Decision.Attack), new DefendAttackStrategy()},
+            {(Decision.Attack, Decision.Attack), new AttackAttackStrategy()},
+            {(Decision.Parry, Decision.Attack), new ParryAttackStrategy()}
+        };
 
         /// <summary>
         /// ResolveCombat will handle the Combat. Call only when there should be a fight
@@ -19,10 +33,8 @@ namespace RPG.game_managers
             int playerDamage = 0;
             int enemyDamage = 0;
 
-            bool aiParrySuccess = RandomChance(PARRY_SUCCESS_CHANCE);
-            bool aiDefendSuccess = RandomChance(DEFEND_SUCCESS_CHANCE);
-            bool playerParrySuccess = RandomChance(PARRY_SUCCESS_CHANCE);
-            bool playerDefendSuccess = RandomChance(DEFEND_SUCCESS_CHANCE);
+            bool playerSuccess = RandomChance(player.characterDecision == Decision.Parry ? PARRY_SUCCESS_CHANCE : DEFEND_SUCCESS_CHANCE);
+            bool enemySuccess = RandomChance(enemy.characterDecision == Decision.Parry ? PARRY_SUCCESS_CHANCE : DEFEND_SUCCESS_CHANCE);
 
             Console.WriteLine($"Player Name: {player.Name}\n" +
                               $"Player health: {player.Health}/{player.MaxHealth}\n");
@@ -40,93 +52,34 @@ namespace RPG.game_managers
             HandleInput(player, playerDecisionNumber, enemy);
             HandleInput(enemy, aiDecision, player);
 
-            // TODO: Get rid of the default occurence by checking all decisions
-            // Switch decisions
-            switch (player.characterDecision)
+            // save the strategy and execute it
+            ICombatStrategy strategy = GetStrategy(player.characterDecision, enemy.characterDecision);
+            strategy.Execute(player, enemy, playerSuccess, enemySuccess);
+        }
+
+        /// <summary>
+        /// GetStrategy gathers the strategy from the Strategies dictionary, if successful it returns a valid strategy!
+        /// </summary>
+        /// <param name="playerDecision"></param>
+        /// <param name="enemyDecision"></param>
+        /// <returns></returns>
+        /// <exception cref="InvalidOperationException"></exception>
+        private static ICombatStrategy GetStrategy(Decision playerDecision, Decision enemyDecision)
+        {
+            // if the playerDecision decides to defend or parry, force the enemyDecision to attack
+            if (playerDecision == Decision.Defend || playerDecision == Decision.Parry)
             {
-                // Resolve combat
-                case Decision.Attack when enemy.characterDecision == Decision.Parry && aiParrySuccess:
-                    Debug.WriteLine("Enemy parried!");
-
-                    // gather damage and output it
-                    enemyDamage = enemy.Parry();
-                    player.Health -= enemyDamage;
-                    Debug.WriteLine($"{player} health: {player.Health}");
-                    break;
-                case Decision.Attack when enemy.characterDecision == Decision.Parry && !aiParrySuccess:
-                    Debug.WriteLine($"{enemy} failed to parry!");
-
-                    // gather damage and output it
-                    playerDamage = player.Attack();
-                    enemy.Health -= playerDamage;
-                    Debug.WriteLine($"{enemy} health: {enemy.Health}");
-                    break;
-                case Decision.Attack when enemy.characterDecision == Decision.Defend && aiDefendSuccess:
-                    Debug.WriteLine($"{enemy} has blocked the attack!");
-                    // save the damage
-                    playerDamage = enemy.Defend();
-
-                    // reduce the health
-                    enemy.Health -= playerDamage;
-                    Debug.WriteLine($"{enemy} health: {enemy.Health}");
-                    break;
-                case Decision.Attack when enemy.characterDecision == Decision.Defend && !aiDefendSuccess:
-                    Debug.WriteLine($"{enemy} has failed to block the attack!");
-                    playerDamage = player.Attack();
-                    enemy.Health -= playerDamage;
-                    Debug.WriteLine($"{enemy} health: {enemy.Health}");
-                    break;
-                case Decision.Attack when enemy.characterDecision == Decision.Attack:
-                    Debug.WriteLine("Both the Player and Ai attacked!");
-                    // save both damage outputs
-                    playerDamage = player.Attack();
-                    enemyDamage = enemy.Attack();
-
-                    // reduce health
-                    player.Health -= enemyDamage;
-                    enemy.Health -= playerDamage;
-                    Debug.WriteLine($"Health {player}: {player.Health}\n" +
-                                    $"Health {enemy}: {enemy.Health}");
-                    break;
-                case Decision.Defend when enemy.characterDecision == Decision.Attack && playerDefendSuccess:
-                    Debug.WriteLine($"{player} successfully defended the attack!");
-                    enemyDamage = player.Defend();
-                    player.Health -= enemyDamage;
-
-                    Debug.WriteLine($"{player} health: {player.Health}");
-                    break;
-                case Decision.Defend when enemy.characterDecision == Decision.Attack && !playerDefendSuccess:
-                    Debug.WriteLine($"{player} failed to defend!");
-                    enemyDamage = enemy.Attack();
-                    player.Health -= enemyDamage;
-
-                    Debug.WriteLine($"{player} health: {player.Health}");
-                    break;
-                case Decision.Defend when enemy.characterDecision == Decision.Defend:
-                    Console.WriteLine("Both of you were defending.. Nothing exciting happened.");
-                    break;
-                case Decision.Parry when enemy.characterDecision == Decision.Attack && playerParrySuccess:
-                    Debug.WriteLine($"{player} successfully parried the attack!");
-                    playerDamage = player.Parry();
-                    enemy.Health -= playerDamage;
-                    break;
-                case Decision.Parry when enemy.characterDecision == Decision.Attack && !playerParrySuccess:
-                    Debug.WriteLine($"{player} failed to parry the attack!");
-                    enemyDamage = enemy.Attack();
-                    player.Health -= enemyDamage;
-                    break;
-                case Decision.Parry when enemy.characterDecision == Decision.Defend:
-                    Console.WriteLine("You really tried to parry a shield that is blocking?\n" +
-                                      "Now that is crazy...");
-                    break;
-                case Decision.Parry when enemy.characterDecision == Decision.Parry:
-                    Console.WriteLine("The enemy parried your parry... wait what?" +
-                                      "Interesting, but nothing happened!");
-                    break;
-                default:
-                    Console.WriteLine($"Yes.");
-                    break;
+                enemyDecision = Decision.Attack;
             }
+
+            // Try to get the according value, if correct return the strategy
+            if (Strategies.TryGetValue((playerDecision, enemyDecision), out var strategy))
+            {
+                return strategy;
+            }
+
+            // else throw an exception
+            throw new InvalidOperationException("Invalid combination of decisions");
         }
 
         public static void StartCombat(Character player, Character enemy)
@@ -140,7 +93,7 @@ namespace RPG.game_managers
 
                 ResolveCombat(player, enemy);
 
-                // Check if the enemy is defeated
+                // Check if the enemyDecision is defeated
                 if (enemy.Health <= 0)
                 {
                     Console.WriteLine("Player defeated the enemy. Victory!");
@@ -161,19 +114,13 @@ namespace RPG.game_managers
             switch (input)
             {
                 case 1:
-                    if (!target.Defending)
-                    {
-                        decisionMaker.characterDecision = Decision.Attack;
-                    }
+                    decisionMaker.characterDecision = Decision.Attack;
                     break;
                 case 2:
-                    decisionMaker.Defending = true;
+                    decisionMaker.characterDecision = Decision.Defend;
                     break;
                 case 3:
-                    if (!target.Defending)
-                    {
-                        decisionMaker.characterDecision = Decision.Parry;
-                    }
+                    decisionMaker.characterDecision = Decision.Parry;
                     break;
                 default:
                     Console.WriteLine("Invalid decision number!");
