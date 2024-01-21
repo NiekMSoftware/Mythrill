@@ -48,6 +48,7 @@
         protected int charisma;
 
         protected bool defending;
+        protected bool isDead;
 
         #region Public Properties
 

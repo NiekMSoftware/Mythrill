@@ -39,6 +39,7 @@ namespace RPG.game_states
                     }
                     else
                     {
+                        Console.Clear();
                        SelectMode();
                     }
                     break;
@@ -83,10 +84,13 @@ namespace RPG.game_states
             switch (input)
             {
                 case 1:
-                    gameStates.Push(new SelectCharacter(gameStates, characters));
+                    Console.Clear();
+                    selectedCombat = true;
+                    gameStates.Push(new SelectCharacter(gameStates, characters, selectedCombat));
                     break;
                 case 2:
-                    //gameStates.Push(new RoomGenerator(gameStates, characters, 40, 15));
+                    Console.Clear();
+                    gameStates.Push(new SelectCharacter(gameStates, characters, selectedCombat));
                     break;
                 default:
                     Console.Write($"Input {input} is a invalid index!\n" +

@@ -8,42 +8,46 @@ namespace RPG.game_states
     {
         private bool choseCharacter;
 
-        public SelectCharacter(Stack<GameState> gameStates, List<Character> characters) : 
+        public SelectCharacter(Stack<GameState> gameStates, List<Character> characters, bool selectedCombat) : 
             base(gameStates, characters)
         {
+            this.selectedCombat = selectedCombat;
             this.characters = characters;
         }
 
         public override void Update()
         {
             Gui.GameState("Select Character");
-
             if (!choseCharacter)
             {
-                gameStates.Push(new CombatState(gameStates, characters, 
-                    Selection(characters)));
+                if (selectedCombat)
+                {
+                    Debug.WriteLine("Pushing in Combat");
+                    gameStates.Push(new CombatState(gameStates, characters, Selection(characters)));
+                }
+                else
+                {
+                    Debug.WriteLine("Pushing in Endless Mode");
+                    gameStates.Push(new EndlessState(gameStates, characters, Selection(characters)));
+                }
             }
-            else
-            {
-                endState = true;
-                Debug.WriteLine($"Popped {this}");
-            }
+            
         }
 
-        public Character? Selection(List<Character> characters)
+        public Character? Selection(List<Character> charactersList)
         {
             Character? selectedCharacter = null;
 
-            for (int i = 0; i < characters.Count; i++)
+            for (int i = 0; i < charactersList.Count; i++)
             {
-                Gui.ShowOptions(i + 1, $"{characters[i].Name}");
+                Gui.ShowOptions(i + 1, $"{charactersList[i].Name}");
             }
 
             int input = Gui.GetInput("> ");
 
-            if (input >= 1 && input <= characters.Count)
+            if (input >= 1 && input <= charactersList.Count)
             {
-                selectedCharacter = characters[input - 1];
+                selectedCharacter = charactersList[input - 1];
                 Debug.WriteLine($"Selected: {selectedCharacter.Name}");
             }
             else

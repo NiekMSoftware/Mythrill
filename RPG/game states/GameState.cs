@@ -22,6 +22,9 @@ namespace RPG.game_states
         // Protected boolean to check if the combat has ended
         protected bool endCombat;
 
+        // Protected boolean to check if the combat has been selected
+        protected bool selectedCombat;
+
         // Constant int to keep the capacity up, this property is on private
         private const int LIST_SIZE = 10;
 
