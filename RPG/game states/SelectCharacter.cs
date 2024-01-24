@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 using RPG.characters;
+using RPG.game_states.endless;
+using RPG.player_classes;
 using RPG.user_interface;
 
 namespace RPG.game_states
@@ -27,7 +29,6 @@ namespace RPG.game_states
                 }
                 else
                 {
-                    Debug.WriteLine("Pushing in Endless Mode");
                     gameStates.Push(new EndlessState(gameStates, characters, Selection(characters)));
                 }
             }
