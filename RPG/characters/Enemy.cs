@@ -78,11 +78,11 @@ namespace RPG.characters
             Debug.WriteLine($"EnemyType is: {enemyType}");
 
             // set enemy race
-            var races = Enum.GetValues(typeof(Race));
-            Race race;
+            var races = Enum.GetValues(typeof(CharacterData.Race));
+            CharacterData.Race race;
             do
             {
-                characterRace = (Race)races.GetValue(random.Next(races.Length));
+                characterRace = (CharacterData.Race)races.GetValue(random.Next(races.Length));
             } while (characterRace == Race.None);
 
             // set gender
