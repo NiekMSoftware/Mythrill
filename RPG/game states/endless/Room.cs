@@ -1,4 +1,5 @@
-﻿using RPG.player_classes;
+﻿using System.Diagnostics;
+using RPG.player_classes;
 
 namespace RPG.game_states.endless;
 
@@ -30,7 +31,7 @@ public class Room
         PrintRoom();
 
         // init player
-        playerController = new();
+        playerController = new() { X = Width / 2, Y = Height / 2 };
     }
 
     private void CreateRoom()
@@ -72,7 +73,7 @@ public class Room
         RoomData[centerX, centerY] = PlayerController.PlayerChar;
     }
 
-    private void PrintRoom()
+    public void PrintRoom()
     {
         for (int y = 0; y < Height; y++)
         {
@@ -87,6 +88,42 @@ public class Room
 
     public void UpdateRoom()
     {
+        if (Console.KeyAvailable)
+        {
+            var key = Console.ReadKey(true).Key;
 
+            if (playerController.Movement.ContainsKey(key))
+            {
+                var (dx, dy) = playerController.Movement[key];
+                int newX = playerController.X + dx;
+                int newY = playerController.Y + dy;
+
+                // Check if the new position is within the room and not a wall
+                if (IsPositionValid(playerController.X + dx, playerController.Y + dy))
+                {
+                    // Remove player from old position
+                    Console.SetCursorPosition(playerController.X, playerController.Y);
+                    Console.Write(FLOOR);
+
+                    // Update player position
+                    playerController.X = newX;
+                    playerController.Y = newY;
+
+                    // Place player at new position
+                    Console.SetCursorPosition(playerController.X, playerController.Y);
+                    Console.Write(PlayerController.PlayerChar);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid key!");
+                Debug.WriteLine("Invalid key!");
+            }
+        }
+    }
+
+    private bool IsPositionValid(int x, int y)
+    {
+        return x >= 0 && x < Width && y >= 0 && y < Height && RoomData[x, y] != WALL;
     }
 }

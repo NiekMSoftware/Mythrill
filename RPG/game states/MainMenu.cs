@@ -84,6 +84,7 @@ namespace RPG.game_states
                     break;
                 case 2:
                     Console.Clear();
+                    selectedCombat = false;
                     gameStates.Push(new SelectCharacter(gameStates, characters, deadCharacters, selectedCombat));
                     break;
                 default:

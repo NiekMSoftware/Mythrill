@@ -9,10 +9,14 @@ namespace RPG.game_states
     {
         private Character playerCharacter;
 
+        private Room room;
+
         public EndlessState(Stack<GameState> gameStates, List<Character> characters, List<Character> deCharacters,
             Character? playerChar, Room room) 
             : base(gameStates, characters, deCharacters)
         {
+            this.room = room;
+
             if (playerChar != null)
             {
                 playerCharacter = playerChar;
@@ -23,6 +27,9 @@ namespace RPG.game_states
         {
             // make sure the terminal is not buffering after the player moves
             Console.CursorVisible = false;
+
+            // update the room each frame
+            room.UpdateRoom();
         }
     }
 }

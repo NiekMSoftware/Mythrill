@@ -1,4 +1,6 @@
-﻿namespace RPG
+﻿using RPG.game_states.endless;
+
+namespace RPG
 {
     internal class Program
     {

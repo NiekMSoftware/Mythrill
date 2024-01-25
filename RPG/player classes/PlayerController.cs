@@ -5,16 +5,16 @@
         /// <summary>
         /// We store the Movement in a dictionary, so we could easily gather the new index of the player
         /// </summary>
-        private Dictionary<ConsoleKey, (int, int)> movement = new ()
+        public Dictionary<ConsoleKey, (int, int)> Movement = new ()
         {
-            { ConsoleKey.W, (1, 0) },
-            { ConsoleKey.A, (0, -1) },
-            { ConsoleKey.S, (-1, 0) },
-            { ConsoleKey.D, (0, 1) },
-            { ConsoleKey.UpArrow, (1, 0) },
-            { ConsoleKey.LeftArrow, (0, -1) },
-            { ConsoleKey.DownArrow, (-1, 0) },
-            { ConsoleKey.RightArrow, (0, 1) }
+            { ConsoleKey.W, (0, -1) },
+            { ConsoleKey.A, (-1, 0) },
+            { ConsoleKey.S, (0 , 1) },
+            { ConsoleKey.D, (1 , 0) },
+            { ConsoleKey.UpArrow, (0 , -1) },
+            { ConsoleKey.LeftArrow, (-1 , 0) },
+            { ConsoleKey.DownArrow, (0 , 1) },
+            { ConsoleKey.RightArrow, (1 , 0) }
         };
 
         // position properties
