@@ -11,9 +11,9 @@ namespace RPG.game_states
 
         private Room room;
 
-        public EndlessState(Stack<GameState> gameStates, List<Character> characters, List<Character> deCharacters,
+        public EndlessState(Stack<GameState> gameStates, List<Character> characters, List<Character> deadCharacters,
             Character? playerChar, Room room) 
-            : base(gameStates, characters, deCharacters)
+            : base(gameStates, characters, deadCharacters)
         {
             this.room = room;
 

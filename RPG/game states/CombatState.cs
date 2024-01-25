@@ -21,7 +21,10 @@ namespace RPG.game_states
             player = character;
             Player.GetPlayer(character);
 
-            enemy.CreateEnemy(enemy);
+            enemy.CreateEnemy();
+            Debug.WriteLine($"Enemy name: {enemy.Name}\n" +
+                            $"Enemy type:  {enemy.enemyType}\n" +
+                            $"Enemy Gender: {enemy.characterGender}\n");
             enemy.Health = 30;
         }
 
