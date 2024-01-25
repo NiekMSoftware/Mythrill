@@ -157,7 +157,7 @@ namespace RPG.characters
             set => defending = value;
         }
 
-        public bool IsAlive() => Health > 0;
+        public bool IsAlive() => Health >= 0;
 
         public bool IsDefending() => Defending;
 

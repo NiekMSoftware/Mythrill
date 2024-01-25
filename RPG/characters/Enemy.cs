@@ -42,15 +42,18 @@ namespace RPG.characters
             "Towa",
             "Ina"
         };
+        
+        public int X { get; set; }
+        public int Y { get; set; }
 
         public EnemyType enemyType;
 
-        private Character player;
+        private Character? player;
 
         // stat modifier will increase after each player level
         private float statModifier = 0.2f;
 
-        public Enemy(Character player)
+        public Enemy(Character? player)
         {
             this.player = player;
             

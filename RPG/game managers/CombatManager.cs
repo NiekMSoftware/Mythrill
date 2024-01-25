@@ -120,7 +120,15 @@ namespace RPG.game_managers
                             player.Exp += CalculateExp(enemy);
                             break;
                     }
-                    break;
+                    
+                    // level up player
+                    if (player.Exp >= player.MaxExp)
+                    {
+                        Console.WriteLine($"{player.Name} has levelled up!\n" +
+                                          $"(press any key to continue)");
+                        player.LevelUp();
+                        Console.ReadKey();
+                    }
                 }
 
                 if (player.Health > 0) continue;
@@ -128,34 +136,41 @@ namespace RPG.game_managers
                                   "(press any key to continue)");
                 Console.ReadKey();
             }
-
-            // level up player
-            if (player.Exp >= player.MaxExp)
-            {
-                Console.WriteLine($"{player.Name} has levelled up!\n" +
-                                  $"(press any key to continue)");
-                player.LevelUp();
-                Console.ReadKey();
-            }
         }
 
         public static void HandleInput(Character decisionMaker, int input, Character target)
         {
-            switch (input)
+            bool validInput = false;
+
+            while (!validInput)
             {
-                case 1:
-                    decisionMaker.characterDecision = CharacterData.Decision.Attack;
-                    break;
-                case 2:
-                    decisionMaker.characterDecision = CharacterData.Decision.Defend;
-                    break;
-                case 3:
-                    decisionMaker.characterDecision = CharacterData.Decision.Parry;
-                    break;
-                default:
-                    Console.WriteLine("Invalid decision number!");
-                    break;
+                switch (input)
+                {
+                    case 1:
+                        decisionMaker.characterDecision = CharacterData.Decision.Attack;
+                        validInput = true;
+                        break;
+                    case 2:
+                        decisionMaker.characterDecision = CharacterData.Decision.Defend;
+                        validInput = true;
+                        break;
+                    case 3:
+                        decisionMaker.characterDecision = CharacterData.Decision.Parry;
+                        validInput = true;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid decision number! Please enter a number between 1 and 3: ");
+
+                        if (!int.TryParse(Console.ReadLine(), out input))
+                        {
+                            Console.WriteLine("Invalid input! Please enter a number: ");
+                        }
+                        
+                        break;
+                }
             }
+            
+            
 
             // Set decision after handling input
             decisionMaker.characterDecision = (CharacterData.Decision)input;

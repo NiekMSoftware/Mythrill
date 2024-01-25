@@ -15,9 +15,10 @@ namespace RPG.game_states
         private Random random = new Random();
 
         public CombatState(Stack<GameState> gameStates, List<Character> characters, List<Character> deadCharacters,
-                            Character? character)
+                            Character? character, bool didCombatEnd)
             : base(gameStates, characters, deadCharacters)
         {
+            endCombat = didCombatEnd;
             player = character;
             if (player != null) enemy = new(player);
             Player.GetPlayer(character);

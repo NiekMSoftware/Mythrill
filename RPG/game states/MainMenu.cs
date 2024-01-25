@@ -106,7 +106,7 @@ namespace RPG.game_states
             else
             {
                 // check if the first character is alive
-                if (!characters[0].IsAlive())
+                if (characters[0].Health <= 0)
                 {
                     Debug.WriteLine($"{characters[0].Name} has died! Adding to the deadCharacters list...\n");
 

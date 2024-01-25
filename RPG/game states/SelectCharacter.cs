@@ -10,7 +10,8 @@ namespace RPG.game_states
     {
         private bool choseCharacter;
 
-        public SelectCharacter(Stack<GameState> gameStates, List<Character> characters, List<Character> deadCharacters, bool selectedCombat) : 
+        public SelectCharacter(Stack<GameState> gameStates, List<Character> characters, 
+                                List<Character> deadCharacters, bool selectedCombat) : 
             base(gameStates, characters, deadCharacters)
         {
             this.selectedCombat = selectedCombat;
@@ -26,13 +27,15 @@ namespace RPG.game_states
                 {
                     Debug.WriteLine("Pushing in Combat");
                     endState = true;
-                    gameStates.Push(new CombatState(gameStates, characters, deadCharacters, Selection(characters)));
+                    gameStates.Push(new CombatState(gameStates, characters, deadCharacters,
+                    Selection(characters), true));
                 }
                 else
                 {
                     endState = true;
+                    Character playerChar = Selection(characters);
                     gameStates.Push(new EndlessState(gameStates, characters, deadCharacters,
-                        Selection(characters), new Room(35, 12)));
+                        playerChar, new Room(35, 12, playerChar)));
                 }
             }
         }
