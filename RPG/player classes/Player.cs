@@ -7,6 +7,11 @@ namespace RPG.player_classes
 {
     public class Player : Character
     {
+        public Player(Character character)
+        {
+            Debug.WriteLine($"Hello: {character}");
+        }
+
         public static Character? GetPlayer(Character? player)
         {
             Debug.WriteLine($"Returning {player}\n" +

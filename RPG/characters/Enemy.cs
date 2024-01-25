@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using RPG.characters.character_classes;
 using RPG.interfaces;
+using RPG.player_classes;
 
 namespace RPG.characters
 {
@@ -44,11 +45,24 @@ namespace RPG.characters
 
         public EnemyType enemyType;
 
-        public Enemy()
+        private Character player;
+
+        // stat modifier will increase after each player level
+        private float statModifier = 0.2f;
+
+        public Enemy(Character player)
         {
+            this.player = player;
+            
             // Create enemy
             CreateEnemy();
-            
+
+            // Check player level
+            while (level != player.Level)
+            {
+                level++;
+            }
+
             // apply stat changes
             ApplyStats();
         }
@@ -85,84 +99,98 @@ namespace RPG.characters
                 : femaleNames[random.Next(femaleNames.Length)];
         }
 
+        private float LevelModifier()
+        {
+            float pLevel = player.Level;
+            return statModifier += pLevel;
+        }
+
         private void ApplyStats()
         {
+            float s = 3;
+            float c = 3;
+            float d = 4;
+            float i = 2;
+            float w = 1;
+            float ch = 2;
+
             switch (enemyType)
             {
                 case EnemyType.Skeleton:
-                    strength = 3;
-                    constitution = 3;
-                    dexterity = 4;
-                    intelligence = 2;
-                    wisdom = 1;
-                    charisma = 2;
+                    strength = (int)(s *= LevelModifier());
+                    constitution = (int)(c *= LevelModifier());
+                    dexterity = (int)(d *= LevelModifier());
+                    intelligence = (int)(i *= LevelModifier());
+                    wisdom = (int)(w *= LevelModifier());
+                    charisma = (int)(ch *= LevelModifier());
 
                     maxHealth = (constitution * 10) / 3;
                     health = maxHealth;
                     defense = (constitution * 3) / 4;
                     damage = (strength * 2) / 3;
-
-                    level = 1;
-                    exp = 0;
-                    maxExp = (level * 10) / 2;
-                    skillPoints = 5;
                     break;
 
                 case EnemyType.Goblin:
-                    strength = 4;
-                    constitution = 2;
-                    dexterity = 4;
-                    intelligence = 1;
-                    wisdom = 1;
-                    charisma = 1;
+                    s = 4;
+                    c = 2;
+                    d = 4;
+                    i = 1;
+                    w = 1;
+                    ch = 1;
+
+                    strength = (int)(s *= LevelModifier());
+                    constitution = (int)(c *= LevelModifier());
+                    dexterity = (int)(d *= LevelModifier());
+                    intelligence = (int)(i *= LevelModifier());
+                    wisdom = (int)(w *= LevelModifier());
+                    charisma = (int)(ch *= LevelModifier());
 
                     maxHealth = (constitution * 10) / 3;
                     health = maxHealth;
                     defense = (constitution * 3) / 4;
                     damage = (strength * 2) / 3;
-
-                    level = 1;
-                    exp = 0;
-                    maxExp = (level * 10) / 2;
-                    skillPoints = 5;
                     break;
 
                 case EnemyType.Warrior:
-                    strength = 4;
-                    constitution = 5;
-                    dexterity = 5;
-                    intelligence = 3;
-                    wisdom = 4;
-                    charisma = 5;
+                    s = 5;
+                    c = 4;
+                    d = 5;
+                    i = 4;
+                    w = 3;
+                    ch = 5;
+
+                    strength = (int)(s *= LevelModifier());
+                    constitution = (int)(c *= LevelModifier());
+                    dexterity = (int)(d *= LevelModifier());
+                    intelligence = (int)(i *= LevelModifier());
+                    wisdom = (int)(w *= LevelModifier());
+                    charisma = (int)(ch *= LevelModifier());
 
                     maxHealth = (constitution * 10) / 3;
                     health = maxHealth;
                     defense = (constitution * 3) / 4;
                     damage = (strength * 2) / 3;
-
-                    level = 1;
-                    exp = 0;
-                    maxExp = (level * 10) / 2;
-                    skillPoints = 5;
                     break;
 
                 case EnemyType.Valkyrie:
-                    strength = 6;
-                    constitution = 6;
-                    dexterity = 5;
-                    intelligence = 5;
-                    wisdom = 6;
-                    charisma = 6;
+                    s = 6;
+                    c = 6;
+                    d = 5;
+                    i = 6;
+                    w = 6; 
+                    ch = 6;
+
+                    strength = (int)(s *= LevelModifier());
+                    constitution = (int)(c *= LevelModifier());
+                    dexterity = (int)(d *= LevelModifier());
+                    intelligence = (int)(i *= LevelModifier());
+                    wisdom = (int)(w *= LevelModifier());
+                    charisma = (int)(ch *= LevelModifier());
 
                     maxHealth = (constitution * 10) / 3;
                     health = maxHealth;
                     defense = (constitution * 3) / 4;
                     damage = (strength * 2) / 3;
-
-                    level = 1;
-                    exp = 0;
-                    maxExp = (level * 10) / 2;
-                    skillPoints = 5;
                     break;
             }
         }

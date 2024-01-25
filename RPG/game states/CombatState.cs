@@ -19,7 +19,7 @@ namespace RPG.game_states
             : base(gameStates, characters, deadCharacters)
         {
             player = character;
-            enemy = new();
+            if (player != null) enemy = new(player);
             Player.GetPlayer(character);
             Debug.WriteLine($"Enemy name: {enemy.Name}\n" +
                             $"Enemy type:  {enemy.enemyType}\n" +
