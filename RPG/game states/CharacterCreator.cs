@@ -82,10 +82,11 @@ namespace RPG.game_states
             {
                 Gui.GameState("Characters");
 
-                //TODO: Display all characters' names and make the player select them to view or delete them
+                int index = 1;
                 foreach (var character in characters)
                 {
-                    Gui.ShowOptions(0 + 1, character.Name);
+                    Gui.ShowOptions(index, character.Name + $" | {character}");
+                    index++;
                 }
             }
         }
@@ -188,7 +189,7 @@ namespace RPG.game_states
                 Console.Write("\nPlease enter a valid name (limit of: 2-18 characters): ");
                 nameInput = Console.ReadLine();
 
-            } while (nameInput?.Length is <= 2 or >= 18);
+            } while (nameInput?.Length < 2 || nameInput?.Length > 18);
 
             // add the name to the character
             if (nameInput != null) playerCharacter.Name = nameInput;

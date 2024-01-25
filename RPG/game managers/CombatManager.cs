@@ -132,7 +132,7 @@ namespace RPG.game_managers
                 }
 
                 if (player.Health > 0) continue;
-                Console.WriteLine("Player was defeated by the enemy. Game Over!" +
+                Console.WriteLine("Player was defeated by the enemy. Game Over!\n" +
                                   "(press any key to continue)");
                 Console.ReadKey();
             }

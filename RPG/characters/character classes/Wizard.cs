@@ -8,7 +8,7 @@
         public Wizard()
         {
             strength = 4;
-            constitution = 3;
+            constitution = 5;
             dexterity = 2;
             intelligence = 6;
             wisdom = 5;

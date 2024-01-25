@@ -28,7 +28,7 @@ namespace RPG.game_states
                     Debug.WriteLine("Pushing in Combat");
                     endState = true;
                     gameStates.Push(new CombatState(gameStates, characters, deadCharacters,
-                    Selection(characters), true));
+                    Selection(characters), false));
                 }
                 else
                 {
@@ -44,9 +44,11 @@ namespace RPG.game_states
         {
             Character? selectedCharacter = null;
 
-            for (int i = 0; i < charactersList.Count; i++)
+            int index = 1;
+            foreach (var character in characters)
             {
-                Gui.ShowOptions(i + 1, $"{charactersList[i].Name}");
+                Gui.ShowOptions(index, character.Name + $" | {character}");
+                index++;
             }
 
             while (selectedCharacter == null)

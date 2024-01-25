@@ -40,7 +40,9 @@ namespace RPG.game_states
                     break;
 
                 case 3:
-                    Console.WriteLine("Displaying Options");
+                    Console.WriteLine("Niek M. - Programmer");
+                    Console.ReadKey();
+                    Console.Clear();
                     break;
 
                 case -1:

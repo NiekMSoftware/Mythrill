@@ -13,17 +13,21 @@ namespace RPG.combat_strategy
         {
             if (enemySuccess)
             {
-                Debug.WriteLine($"{enemy.Name} has blocked the attack!");
-                int playerDamage = enemy.Defend();
-                enemy.Health -= playerDamage;
-                Debug.WriteLine($"{enemy.Name} health: {enemy.Health}");
+                int enemyDamage = enemy.Parry();
+                
+                Console.WriteLine($"{enemy.Name} has parried the attack!\n" +
+                                  $"{player.Name} has received: {enemyDamage} damage!");
+                Console.ReadKey();
+                player.Health -= enemyDamage;
             }
             else
             {
-                Debug.WriteLine($"{enemy.Name} has failed to block the attack!");
                 int playerDamage = player.Attack();
+                
+                Console.WriteLine($"{enemy.Name} has failed to parry the attack!\n" +
+                                  $"{player.Name} dealt: {playerDamage} damage to {enemy.Name}!");
+                Console.ReadKey();
                 enemy.Health -= playerDamage;
-                Debug.WriteLine($"{enemy.Name} health: {enemy.Health}");
             }
         }
     }
@@ -35,17 +39,23 @@ namespace RPG.combat_strategy
         {
             if (enemySuccess)
             {
-                Debug.WriteLine($"{enemy.Name} has blocked the attack!");
                 int playerDamage = enemy.Defend();
+                
+                Console.WriteLine($"{enemy.Name} has blocked the attack!\n" +
+                                  $"{player.Name} dealt: {playerDamage} damage to {enemy.Name}!");
+                Console.ReadKey();
+                
                 enemy.Health -= playerDamage;
-                Debug.WriteLine($"{enemy.Name} health: {enemy.Health}");
             }
             else
             {
-                Debug.WriteLine($"{enemy.Name} has failed to block the attack!");
                 int playerDamage = player.Attack();
+                
+                Console.WriteLine($"{enemy.Name} has failed to block the attack!\n" +
+                                  $"{player.Name} dealt: {playerDamage} damage to {enemy.Name}!");
+                Console.ReadKey();
+                
                 enemy.Health -= playerDamage;
-                Debug.WriteLine($"{enemy.Name} health: {enemy.Health}");
             }
         }
     }
@@ -63,9 +73,10 @@ namespace RPG.combat_strategy
             enemy.Health -= playerDamage;
             player.Health -= enemyDamage;
 
-            Console.WriteLine($"Both {player.Name} and {enemy.Name} attack each other!\n" +
+            Console.WriteLine($"Both {player.Name} and {enemy.Name} attacked each other!\n" +
                               $"{player.Name} dealt: {playerDamage} damage to the enemy!\n" +
-                              $"{enemy.Name} dealt: {enemyDamage} to their opponent!\n");
+                              $"{enemy.Name} dealt: {enemyDamage} to {player.Name}!\n");
+            Console.ReadKey();
         }
     }
 
@@ -76,17 +87,23 @@ namespace RPG.combat_strategy
         {
             if (playerSuccess)
             {
-                Debug.WriteLine($"{player.Name} successfully defended the attack!");
                 int enemyDamage = player.Defend();
+                
+                Console.WriteLine($"{player.Name} successfully defended the attack!\n" +
+                                  $"{enemy.Name} dealt: {enemyDamage} damage to {player.Name}!");
+                Console.ReadKey();
+                
                 player.Health -= enemyDamage;
-                Debug.WriteLine($"{player.Name} health: {player.Health}");
             }
             else
             {
-                Debug.WriteLine($"{player.Name} failed to defend!");
                 int enemyDamage = enemy.Attack();
+                
+                Console.WriteLine($"{player.Name} failed to defend!\n" +
+                                  $"{enemy.Name} dealt {enemyDamage} damage {player.Name}");
+                Console.ReadKey();
+                
                 player.Health -= enemyDamage;
-                Debug.WriteLine($"{player.Name} health: {player.Health}");
             }
         }
     }
@@ -98,14 +115,22 @@ namespace RPG.combat_strategy
         {
             if (playerSuccess)
             {
-                Debug.WriteLine($"{player} successfully parried the attack!");
                 int playerDamage = player.Parry();
+                
+                Console.WriteLine($"{player.Name} successfully parried the attack!\n" +
+                                  $"{player.Name} dealt {playerDamage} damage to {enemy.Name}");
+                Console.ReadKey();
+                
                 enemy.Health -= playerDamage;
             }
             else
             {
-                Debug.WriteLine("Player failed parrying the attack!");
                 int enemyDamage = enemy.Attack();
+             
+                Console.WriteLine($"{player.Name} failed parrying the attack!\n" +
+                                  $"{enemy.Name} dealt: {enemyDamage} damage to {player.Name}!);");
+                Console.ReadKey();
+                
                 player.Health -= enemyDamage;
             }
         }
