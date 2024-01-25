@@ -7,13 +7,11 @@ namespace RPG.game_states
 {
     public class EndlessState : GameState
     {
-        public Room Room { get; set; }
-
         private Character playerCharacter;
-        private PlayerController playerController;
 
-        public EndlessState(Stack<GameState> gameStates, List<Character> characters, Character? playerChar) 
-            : base(gameStates, characters)
+        public EndlessState(Stack<GameState> gameStates, List<Character> characters, List<Character> deCharacters,
+            Character? playerChar, Room room) 
+            : base(gameStates, characters, deCharacters)
         {
             if (playerChar != null)
             {
@@ -25,9 +23,6 @@ namespace RPG.game_states
         {
             // make sure the terminal is not buffering after the player moves
             Console.CursorVisible = false;
-
-            // get the player's input
-            var key = Console.ReadKey(true).Key;
         }
     }
 }

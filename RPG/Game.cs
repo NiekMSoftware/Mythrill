@@ -12,6 +12,9 @@ namespace RPG
         // Create an ArrayList of the characters
         private List<Character>? playerCharacters;
 
+        // Create a List of dead characters
+        private List<Character>? deadCharacters;
+
         // initialize variables in constructor
         public Game()
         {
@@ -27,8 +30,11 @@ namespace RPG
             // Initialize playerCharacters
             playerCharacters = new List<Character>();
 
+            // initialize deadChars
+            deadCharacters = new();
+
             // Push through a new Stack
-            currentState.Push(new MainMenu(currentState, playerCharacters));
+            currentState.Push(new MainMenu(currentState, playerCharacters, deadCharacters));
         }
 
         public void RunLoop()

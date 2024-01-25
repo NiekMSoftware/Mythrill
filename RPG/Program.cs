@@ -1,6 +1,4 @@
-﻿using RPG.game_states;
-
-namespace RPG
+﻿namespace RPG
 {
     internal class Program
     {
@@ -8,7 +6,6 @@ namespace RPG
         {
             var game = new Game();
             game.RunLoop();
-
         }
     }
 }

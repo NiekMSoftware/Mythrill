@@ -7,9 +7,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="game states\endless\" />
-    <Folder Include="player classes\" />
-  </ItemGroup>
-
 </Project>

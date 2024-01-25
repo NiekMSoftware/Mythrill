@@ -14,9 +14,9 @@ namespace RPG.game_states
         private Character? player;
         private Random random = new Random();
 
-        public CombatState(Stack<GameState> gameStates, List<Character> characters,
+        public CombatState(Stack<GameState> gameStates, List<Character> characters, List<Character> deadCharacters,
                             Character? character)
-            : base(gameStates, characters)
+            : base(gameStates, characters, deadCharacters)
         {
             player = character;
             Player.GetPlayer(character);
@@ -27,7 +27,7 @@ namespace RPG.game_states
 
         public override void Update()
         {
-            Gui.GameState("Combat State");
+            Console.Clear();
             if (!endCombat)
             {
                 InstantiateFight();

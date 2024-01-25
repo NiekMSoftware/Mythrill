@@ -10,6 +10,10 @@ namespace RPG.game_states
 
         // ArrayList of CreatedCharacters
         protected List<Character> characters;
+
+        // List of dead characters
+        protected List<Character> deadCharacters;
+
         public List<Character> Characters
         {
             get => characters;
@@ -33,7 +37,7 @@ namespace RPG.game_states
         /// </summary>
         /// <param name="gameStates"></param>
         /// <param name="characters"></param>
-        protected GameState(Stack<GameState> gameStates, List<Character> characters)
+        protected GameState(Stack<GameState> gameStates, List<Character> characters, List<Character> deadCharacters)
         {
             // Set the protected field to the constructor
             // this will keep track of the state
@@ -41,6 +45,7 @@ namespace RPG.game_states
             this.characters = characters;
 
             this.characters = new List<Character>(LIST_SIZE);  // initialize the list to 10
+            this.deadCharacters = deadCharacters;
         }
 
         /// <summary>

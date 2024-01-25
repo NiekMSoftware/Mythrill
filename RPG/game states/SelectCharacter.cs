@@ -10,8 +10,8 @@ namespace RPG.game_states
     {
         private bool choseCharacter;
 
-        public SelectCharacter(Stack<GameState> gameStates, List<Character> characters, bool selectedCombat) : 
-            base(gameStates, characters)
+        public SelectCharacter(Stack<GameState> gameStates, List<Character> characters, List<Character> deadCharacters, bool selectedCombat) : 
+            base(gameStates, characters, deadCharacters)
         {
             this.selectedCombat = selectedCombat;
             this.characters = characters;
@@ -25,14 +25,16 @@ namespace RPG.game_states
                 if (selectedCombat)
                 {
                     Debug.WriteLine("Pushing in Combat");
-                    gameStates.Push(new CombatState(gameStates, characters, Selection(characters)));
+                    endState = true;
+                    gameStates.Push(new CombatState(gameStates, characters, deadCharacters, Selection(characters)));
                 }
                 else
                 {
-                    gameStates.Push(new EndlessState(gameStates, characters, Selection(characters)));
+                    endState = true;
+                    gameStates.Push(new EndlessState(gameStates, characters, deadCharacters,
+                        Selection(characters), new Room(35, 12)));
                 }
             }
-            
         }
 
         public Character? Selection(List<Character> charactersList)
@@ -44,20 +46,23 @@ namespace RPG.game_states
                 Gui.ShowOptions(i + 1, $"{charactersList[i].Name}");
             }
 
-            int input = Gui.GetInput("> ");
+            while (selectedCharacter == null)
+            {
+                int input = Gui.GetInput("> ");
 
-            if (input >= 1 && input <= charactersList.Count)
-            {
-                selectedCharacter = charactersList[input - 1];
-                Debug.WriteLine($"Selected: {selectedCharacter.Name}");
-            }
-            else
-            {
-                Console.WriteLine("Out of bounds!");
+                if (input >= 1 && input <= charactersList.Count)
+                {
+                    selectedCharacter = charactersList[input - 1];
+                    Debug.WriteLine($"Selected: {selectedCharacter.Name}");
+                }
+                else
+                {
+                    Console.WriteLine("Out of bounds! Please enter a valid option.");
+                }
             }
 
             choseCharacter = true;
-            return selectedCharacter ?? null;
+            return selectedCharacter;
         }
     }
 }

@@ -7,8 +7,8 @@ namespace RPG.game_states
 {
     public class CharacterCreator : GameState
     {
-        public CharacterCreator(Stack<GameState> gameStates, List<Character> characters)
-            : base(gameStates, characters)
+        public CharacterCreator(Stack<GameState> gameStates, List<Character> characters, List<Character> deadCharacters)
+            : base(gameStates, characters, deadCharacters)
         {
             this.characters = characters;
         }
