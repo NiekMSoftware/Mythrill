@@ -46,10 +46,14 @@ namespace RPG.characters
 
         public Enemy()
         {
-            // set the stats based on the type
+            // Create enemy
+            CreateEnemy();
+            
+            // apply stat changes
+            ApplyStats();
         }
 
-        public void CreateEnemy()
+        private void CreateEnemy()
         {
             // Instantiate a random value
             var random = new Random();
@@ -79,8 +83,88 @@ namespace RPG.characters
             name = characterGender == Gender.Male
                 ? maleNames[random.Next(maleNames.Length)]
                 : femaleNames[random.Next(femaleNames.Length)];
+        }
 
-            // set scaling factor based on the enemy type
+        private void ApplyStats()
+        {
+            switch (enemyType)
+            {
+                case EnemyType.Skeleton:
+                    strength = 3;
+                    constitution = 3;
+                    dexterity = 4;
+                    intelligence = 2;
+                    wisdom = 1;
+                    charisma = 2;
+
+                    maxHealth = (constitution * 10) / 3;
+                    health = maxHealth;
+                    defense = (constitution * 3) / 4;
+                    damage = (strength * 2) / 3;
+
+                    level = 1;
+                    exp = 0;
+                    maxExp = (level * 10) / 2;
+                    skillPoints = 5;
+                    break;
+
+                case EnemyType.Goblin:
+                    strength = 4;
+                    constitution = 2;
+                    dexterity = 4;
+                    intelligence = 1;
+                    wisdom = 1;
+                    charisma = 1;
+
+                    maxHealth = (constitution * 10) / 3;
+                    health = maxHealth;
+                    defense = (constitution * 3) / 4;
+                    damage = (strength * 2) / 3;
+
+                    level = 1;
+                    exp = 0;
+                    maxExp = (level * 10) / 2;
+                    skillPoints = 5;
+                    break;
+
+                case EnemyType.Warrior:
+                    strength = 4;
+                    constitution = 5;
+                    dexterity = 5;
+                    intelligence = 3;
+                    wisdom = 4;
+                    charisma = 5;
+
+                    maxHealth = (constitution * 10) / 3;
+                    health = maxHealth;
+                    defense = (constitution * 3) / 4;
+                    damage = (strength * 2) / 3;
+
+                    level = 1;
+                    exp = 0;
+                    maxExp = (level * 10) / 2;
+                    skillPoints = 5;
+                    break;
+
+                case EnemyType.Valkyrie:
+                    strength = 6;
+                    constitution = 6;
+                    dexterity = 5;
+                    intelligence = 5;
+                    wisdom = 6;
+                    charisma = 6;
+
+                    maxHealth = (constitution * 10) / 3;
+                    health = maxHealth;
+                    defense = (constitution * 3) / 4;
+                    damage = (strength * 2) / 3;
+
+                    level = 1;
+                    exp = 0;
+                    maxExp = (level * 10) / 2;
+                    skillPoints = 5;
+                    break;
+            }
         }
     }
 }

@@ -28,18 +28,23 @@ namespace RPG.game_managers
         /// </summary>
         /// <param name="player"></param>
         /// <param name="enemy"></param>
-        public static void ResolveCombat(Character player, Character enemy)
+        public static void ResolveCombat(Character player, Enemy enemy)
         {
             int playerDamage = 0;
             int enemyDamage = 0;
 
             bool playerSuccess = RandomChance(player.characterDecision == CharacterData.Decision.Parry ? PARRY_SUCCESS_CHANCE : DEFEND_SUCCESS_CHANCE);
             bool enemySuccess = RandomChance(enemy.characterDecision == CharacterData.Decision.Parry ? PARRY_SUCCESS_CHANCE : DEFEND_SUCCESS_CHANCE);
+            Console.Clear();
 
-            Console.WriteLine($"Player Name: {player.Name}\n" +
-                              $"Player health: {player.Health}/{player.MaxHealth}\n");
-            Console.WriteLine($"Enemy Name: {enemy.Name}\n" +
-                              $"Enemy health: {enemy.Health}/{enemy.MaxHealth}");
+            Console.WriteLine($"{player.Name}:\n" +
+                              $"Health: {player.Health}/{player.MaxHealth}\n" +
+                              $"Level: {player.Level}\n" +
+                              $"EXP: {player.Exp}/{player.MaxExp}\n");
+
+            Console.WriteLine($"{enemy.enemyType}: {enemy.Name}\n" +
+                              $"Health: {enemy.Health}/{enemy.MaxHealth}\n" +
+                              $"Level: {enemy.Level}");
 
             Gui.ShowOptions(1, "Attack");
             Gui.ShowOptions(2, "Defend");
@@ -82,10 +87,8 @@ namespace RPG.game_managers
             throw new InvalidOperationException("Invalid combination of decisions");
         }
 
-        public static void StartCombat(Character player, Character enemy)
+        public static void StartCombat(Character player, Enemy enemy)
         {
-            Console.WriteLine("=== Combat Start ===");
-
             while (player.Health > 0 && enemy.Health > 0)
             {
                 player.Defending = false;
@@ -97,16 +100,43 @@ namespace RPG.game_managers
                 if (enemy.Health <= 0)
                 {
                     Console.WriteLine("Player defeated the enemy. Victory!");
-                    break;
-                } 
-                if (player.Health <= 0)
-                {
-                    Console.WriteLine("Player was defeated by the enemy. Game Over!");
+                    
+                    // calculate exp
+                    switch (enemy.enemyType)
+                    {
+                        case Enemy.EnemyType.Skeleton:
+                            player.Exp += CalculateExp(enemy);
+                            break;
+
+                        case Enemy.EnemyType.Goblin:
+                            player.Exp += CalculateExp(enemy);
+                            break;
+
+                        case Enemy.EnemyType.Warrior:
+                            player.Exp += CalculateExp(enemy);
+                            break;
+
+                        case Enemy.EnemyType.Valkyrie:
+                            player.Exp += CalculateExp(enemy);
+                            break;
+                    }
                     break;
                 }
+
+                if (player.Health > 0) continue;
+                Console.WriteLine("Player was defeated by the enemy. Game Over!" +
+                                  "(press any key to continue)");
+                Console.ReadKey();
             }
 
-            Console.WriteLine("=== Combat End ===");
+            // level up player
+            if (player.Exp >= player.MaxExp)
+            {
+                Console.WriteLine($"{player.Name} has levelled up!\n" +
+                                  $"(press any key to continue)");
+                player.LevelUp();
+                Console.ReadKey();
+            }
         }
 
         public static void HandleInput(Character decisionMaker, int input, Character target)
@@ -135,6 +165,26 @@ namespace RPG.game_managers
         {
             Random random = new Random();
             return random.NextDouble() < successChance;
+        }
+
+        private static int CalculateExp(Enemy enemy)
+        {
+            switch (enemy.enemyType)
+            {
+                case Enemy.EnemyType.Skeleton:
+                    return (10 * 2) / 4;
+
+                case Enemy.EnemyType.Goblin:
+                    return (10 * 4) / 4;
+
+                case Enemy.EnemyType.Warrior:
+                    return (10 * 6) / 2;
+
+                case Enemy.EnemyType.Valkyrie:
+                    return (10 * 8) / 2;
+                default:
+                    return 0;
+            }
         }
     }
 }

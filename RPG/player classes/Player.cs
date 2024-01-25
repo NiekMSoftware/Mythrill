@@ -7,11 +7,6 @@ namespace RPG.player_classes
 {
     public class Player : Character
     {
-        public Player()
-        {
-            health = 10;
-        }
-
         public static Character? GetPlayer(Character? player)
         {
             Debug.WriteLine($"Returning {player}\n" +

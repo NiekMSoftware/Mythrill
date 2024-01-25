@@ -10,7 +10,7 @@ namespace RPG.game_states
 {
     public class CombatState : GameState
     {
-        private Enemy enemy = new Enemy();
+        private Enemy enemy;
         private Character? player;
         private Random random = new Random();
 
@@ -19,13 +19,11 @@ namespace RPG.game_states
             : base(gameStates, characters, deadCharacters)
         {
             player = character;
+            enemy = new();
             Player.GetPlayer(character);
-
-            enemy.CreateEnemy();
             Debug.WriteLine($"Enemy name: {enemy.Name}\n" +
                             $"Enemy type:  {enemy.enemyType}\n" +
                             $"Enemy Gender: {enemy.characterGender}\n");
-            enemy.Health = 30;
         }
 
         public override void Update()

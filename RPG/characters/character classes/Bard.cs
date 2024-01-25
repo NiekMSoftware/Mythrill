@@ -25,6 +25,13 @@
             skillPoints = 5;
         }
 
+        public override void LevelUp()
+        {
+            base.LevelUp();
+            maxHealth = (constitution * 10) / 3;
+            health = maxHealth;
+        }
+
         public override string ToString()
         {
             return "Bard";

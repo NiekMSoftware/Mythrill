@@ -167,7 +167,7 @@ namespace RPG.characters
         
         #endregion
 
-        public void LevelUp()
+        public virtual void LevelUp()
         {
             level++;
             exp -= maxExp;
