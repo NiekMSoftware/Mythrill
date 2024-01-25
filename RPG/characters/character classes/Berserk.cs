@@ -7,7 +7,6 @@
     {
         public Berserk()
         {
-            maxHealth = 30;
             health = maxHealth;
         }
 

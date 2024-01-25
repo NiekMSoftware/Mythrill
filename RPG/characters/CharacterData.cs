@@ -1,27 +1,36 @@
-﻿namespace RPG.characters
+﻿using RPG.characters.character_classes;
+
+namespace RPG.characters
 {
     public class CharacterData
     {
+        public enum Race
+        {
+            None,
+            Dragonborn,
+            Human,
+            HalfElf,
+            Elf
+        }
+
+        public enum Gender
+        {
+            Male,
+            Female,
+            None
+        }
+
+        public enum Decision
+        {
+            None,
+            Attack,
+            Defend,
+            Parry
+        }
+
         public CharacterData()
         {
             name = "";
-
-            health = maxHealth;
-            maxHealth = (constitution * 10) / 3;
-            defense = 6;
-            damage = 9;
-
-            level = 1;
-            exp = 0;
-            maxExp = 12;
-            skillPoints = 5;
-
-            strength = (3 * damage) / 4;
-            constitution = 5;
-            dexterity = 11;     // will increase the chance to dodge
-            intelligence = 6;
-            wisdom = 8;
-            charisma = 1;
 
             characterRace = Race.None;
             characterGender = Gender.None;
@@ -157,29 +166,61 @@
         public Decision characterDecision;
         
         #endregion
-    }
 
-    public enum Race
-    {
-        None,
-        Dragonborn,
-        Human,
-        HalfElf,
-        Elf
-    }
+        public void LevelUp()
+        {
+            level++;
+            exp -= maxExp;
+            maxExp += level * 10;
 
-    public enum Gender
-    {
-        Male,
-        Female,
-        None
-    }
+            switch (this)
+            {
+                // increase attributes based on class
+                case Knight:
+                    strength += 4;
+                    constitution += 3;
+                    dexterity += 5;
+                    intelligence += 3;
+                    wisdom += 2;
+                    charisma += 6;
+                    break;
 
-    public enum Decision
-    {
-        None,
-        Attack,
-        Defend,
-        Parry
+                case Wizard:
+                    strength += 2;
+                    constitution += 4;
+                    dexterity += 3;
+                    intelligence += 6;
+                    wisdom += 5;
+                    charisma += 3;
+                    break;
+
+                case Warlock:
+                    strength += 6;
+                    constitution += 4;
+                    dexterity = 4;
+                    intelligence += 2;
+                    wisdom += 3;
+                    charisma += 5;
+                    break;
+
+                case Bard:
+                    strength += 2;
+                    constitution += 4;
+                    dexterity += 5;
+                    intelligence += 2;
+                    wisdom += 3;
+                    charisma += 6;
+                    break;
+
+                case Berserk:
+                    strength += 5;
+                    constitution += 3;
+                    dexterity += 4;
+                    intelligence += 2;
+                    wisdom += 3;
+                    charisma += 5;
+                    break;
+            }
+        }
     }
 }

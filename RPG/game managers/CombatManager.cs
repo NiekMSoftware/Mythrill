@@ -14,13 +14,13 @@ namespace RPG.game_managers
         /// <summary>
         /// Strategies is a dictionary that saved all decision and handles it accordingly to each key-value.
         /// </summary>
-        private static readonly Dictionary<(Decision, Decision), ICombatStrategy> Strategies = new Dictionary<(Decision, Decision), ICombatStrategy>
+        private static readonly Dictionary<(CharacterData.Decision, CharacterData.Decision), ICombatStrategy> Strategies = new Dictionary<(CharacterData.Decision, CharacterData.Decision), ICombatStrategy>
         {
-            {(Decision.Attack, Decision.Parry), new AttackParryStrategy()},
-            {(Decision.Attack, Decision.Defend), new AttackDefendStrategy()},
-            {(Decision.Defend, Decision.Attack), new DefendAttackStrategy()},
-            {(Decision.Attack, Decision.Attack), new AttackAttackStrategy()},
-            {(Decision.Parry, Decision.Attack), new ParryAttackStrategy()}
+            {(CharacterData.Decision.Attack, CharacterData.Decision.Parry), new AttackParryStrategy()},
+            {(CharacterData.Decision.Attack, CharacterData.Decision.Defend), new AttackDefendStrategy()},
+            {(CharacterData.Decision.Defend, CharacterData.Decision.Attack), new DefendAttackStrategy()},
+            {(CharacterData.Decision.Attack, CharacterData.Decision.Attack), new AttackAttackStrategy()},
+            {(CharacterData.Decision.Parry, CharacterData.Decision.Attack), new ParryAttackStrategy()}
         };
 
         /// <summary>
@@ -33,8 +33,8 @@ namespace RPG.game_managers
             int playerDamage = 0;
             int enemyDamage = 0;
 
-            bool playerSuccess = RandomChance(player.characterDecision == Decision.Parry ? PARRY_SUCCESS_CHANCE : DEFEND_SUCCESS_CHANCE);
-            bool enemySuccess = RandomChance(enemy.characterDecision == Decision.Parry ? PARRY_SUCCESS_CHANCE : DEFEND_SUCCESS_CHANCE);
+            bool playerSuccess = RandomChance(player.characterDecision == CharacterData.Decision.Parry ? PARRY_SUCCESS_CHANCE : DEFEND_SUCCESS_CHANCE);
+            bool enemySuccess = RandomChance(enemy.characterDecision == CharacterData.Decision.Parry ? PARRY_SUCCESS_CHANCE : DEFEND_SUCCESS_CHANCE);
 
             Console.WriteLine($"Player Name: {player.Name}\n" +
                               $"Player health: {player.Health}/{player.MaxHealth}\n");
@@ -64,12 +64,12 @@ namespace RPG.game_managers
         /// <param name="enemyDecision"></param>
         /// <returns></returns>
         /// <exception cref="InvalidOperationException"></exception>
-        private static ICombatStrategy GetStrategy(Decision playerDecision, Decision enemyDecision)
+        private static ICombatStrategy GetStrategy(CharacterData.Decision playerDecision, CharacterData.Decision enemyDecision)
         {
             // if the playerDecision decides to defend or parry, force the enemyDecision to attack
-            if (playerDecision == Decision.Defend || playerDecision == Decision.Parry)
+            if (playerDecision == CharacterData.Decision.Defend || playerDecision == CharacterData.Decision.Parry)
             {
-                enemyDecision = Decision.Attack;
+                enemyDecision = CharacterData.Decision.Attack;
             }
 
             // Try to get the according value, if correct return the strategy
@@ -114,13 +114,13 @@ namespace RPG.game_managers
             switch (input)
             {
                 case 1:
-                    decisionMaker.characterDecision = Decision.Attack;
+                    decisionMaker.characterDecision = CharacterData.Decision.Attack;
                     break;
                 case 2:
-                    decisionMaker.characterDecision = Decision.Defend;
+                    decisionMaker.characterDecision = CharacterData.Decision.Defend;
                     break;
                 case 3:
-                    decisionMaker.characterDecision = Decision.Parry;
+                    decisionMaker.characterDecision = CharacterData.Decision.Parry;
                     break;
                 default:
                     Console.WriteLine("Invalid decision number!");
@@ -128,7 +128,7 @@ namespace RPG.game_managers
             }
 
             // Set decision after handling input
-            decisionMaker.characterDecision = (Decision)input;
+            decisionMaker.characterDecision = (CharacterData.Decision)input;
         }
 
         private static bool RandomChance(double successChance)

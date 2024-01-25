@@ -7,7 +7,6 @@
     {
         public Knight()
         {
-            maxHealth = 30;
             health = maxHealth;
         }
 

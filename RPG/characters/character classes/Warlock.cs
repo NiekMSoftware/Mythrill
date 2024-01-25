@@ -7,7 +7,6 @@
     {
         public Warlock()
         {
-            maxHealth = 30;
             health = maxHealth;
         }
 

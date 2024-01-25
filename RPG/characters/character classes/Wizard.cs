@@ -7,7 +7,6 @@
     {
         public Wizard()
         {
-            maxHealth = 30;
             health = maxHealth;
         }
 

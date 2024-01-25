@@ -147,7 +147,7 @@ namespace RPG.game_states
 
             // Select a race
             Console.Write("Please enter a number to select your character's Race: ");
-            while (playerCharacter.characterRace == Race.None)
+            while (playerCharacter.characterRace == CharacterData.Race.None)
             {
                 SelectRace(Gui.GetInput("> "), playerCharacter);
             }
@@ -166,7 +166,7 @@ namespace RPG.game_states
             Console.Write("Please enter a number to select your character's Gender: ");
 
             // Select a gender
-            while (playerCharacter.characterGender == Gender.None)
+            while (playerCharacter.characterGender == CharacterData.Gender.None)
             {
                 SelectGender(Gui.GetInput("> "), playerCharacter);
             }
@@ -216,16 +216,16 @@ namespace RPG.game_states
             switch (index)
             {
                 case 1:
-                    playerCharacter.characterRace = Race.Dragonborn;
+                    playerCharacter.characterRace = CharacterData.Race.Dragonborn;
                     break;
                 case 2:
-                    playerCharacter.characterRace = Race.Elf;
+                    playerCharacter.characterRace = CharacterData.Race.Elf;
                     break;
                 case 3:
-                    playerCharacter.characterRace = Race.HalfElf;
+                    playerCharacter.characterRace = CharacterData.Race.HalfElf;
                     break;
                 case 4:
-                    playerCharacter.characterRace = Race.Human;
+                    playerCharacter.characterRace = CharacterData.Race.Human;
                     break;
                 default:
                     Console.Write("Index out of bounds!\n" +
@@ -241,10 +241,10 @@ namespace RPG.game_states
             switch (input)
             {
                 case 1:
-                    playerCharacter.characterGender = Gender.Male;
+                    playerCharacter.characterGender = CharacterData.Gender.Male;
                     break;
                 case 2:
-                    playerCharacter.characterGender = Gender.Female;
+                    playerCharacter.characterGender = CharacterData.Gender.Female;
                     break;
                 default:
                     Console.WriteLine("Index out of bounds!\n" +

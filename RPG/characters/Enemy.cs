@@ -46,7 +46,7 @@ namespace RPG.characters
 
         public Enemy()
         {
-            health = 10;
+            // set the stats based on the type
         }
 
         public void CreateEnemy()
@@ -79,6 +79,8 @@ namespace RPG.characters
             name = characterGender == Gender.Male
                 ? maleNames[random.Next(maleNames.Length)]
                 : femaleNames[random.Next(femaleNames.Length)];
+
+            // set scaling factor based on the enemy type
         }
     }
 }
