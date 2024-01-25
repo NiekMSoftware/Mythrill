@@ -76,6 +76,12 @@ namespace RPG.game_states
                     {
                         Console.Clear();
                         // TODO: Generate a new Room with new enemies!
+                        Random random = new();
+                        int rWidth = random.Next(10, 20);
+                        int rHeight = random.Next(10, 20);
+                        room = new(rWidth, rHeight, playerCharacter);
+                        
+                        wentToShop = false;
                     }
                     room.UpdateRoom();
                 }
